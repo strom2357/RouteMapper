@@ -1,0 +1,20 @@
+<h2>New Ride</h2>
+
+
+<form action="<%= rides_url %>" method="post"> 
+  <%= auth_token_input %>
+
+  <label>
+    Title
+    <input type="text" name="ride[title]" value="">
+  </label>
+
+  <label>
+    Date
+    <input type="date" name="ride[date]" value="">
+  </label>
+
+    <input type="hidden" name="ride[user_id]" value="<%= current_user.id %>">
+
+  <input type="submit" value="Sign Up">
+</form>

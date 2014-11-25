@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
 	attr_reader :password
 
-	# has_many(:rides)
+	has_many(:rides)
 
 	after_initialize :ensure_session_token
 

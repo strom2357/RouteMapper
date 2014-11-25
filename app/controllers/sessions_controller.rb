@@ -19,6 +19,6 @@ class SessionsController < ApplicationController
 
 	def destroy
 		sign_out
-		render json: "need to add a redirect to session_destroy"
+		redirect_to new_session_url
 	end
 end
