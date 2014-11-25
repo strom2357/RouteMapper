@@ -1,0 +1,68 @@
+PHASE 1 - User can log in, create a basic "ride" with just title and date, and see a rides index.
+Backend
+Models - User (name, id), Ride (user_id, name, date)
+Controllers - Users and Rides
+JSON - api/index
+
+Frontend
+Models/Collections - Rides
+Views - RideIndex with RideIndexItems; RideForm for new rides (that we'll later add to and use for editing as well)
+Routes - "": "index" and "/rides/new": "new"
+
+PHASE 2 - User can create ride w/ GPS coordinates through clicking Map
+Backend
+Models - RideData (ride_id, whatever maps needs to store)
+Controllers - RideData
+
+Frontend
+Models/Collections - RideData
+Views - Update RideForm view/template to work with map
+
+PHASE 3 - Yes, we're only just now adding a ride show page 
+Backend
+JSON - api/rides/:id
+
+Frontend
+Views - RideShow.  I'll also update the RIdeIndexItems at this point to show mileage and climb.
+Routes - "/rides/:id": "show"
+
+PHASE 4 - Add ride editing
+Backend
+I guess I'd add an update action to the rides/ride data controllers
+
+Frontend
+Views - recycle RideForm view but with a fetched model rather than blank new model plugged in
+Routes - "/rides/:id/edit": "edit"
+
+PHASE 5+
+I think phases 1-4 cover the MVP; I need to decide on what direction I want to go with further features after this.  Adding a search for other users/follow relationship for users whose rides I'd see in my index would probably be the best next thing to have to show off.  This would just mean adding a followers table to the database, changing the index view a bit and revisiting the jquery autofill search bar from a couple weeks ago.  I'd like to talk it over a little bit after the MVP's working well.
+
+
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
