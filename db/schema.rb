@@ -17,9 +17,10 @@ ActiveRecord::Schema.define(version: 20141125185254) do
   enable_extension "plpgsql"
 
   create_table "users", force: true do |t|
-    t.string   "username"
-    t.string   "email"
-    t.integer  "session_token"
+    t.string   "username",        null: false
+    t.string   "email",           null: false
+    t.string   "password_digest", null: false
+    t.string   "session_token",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
