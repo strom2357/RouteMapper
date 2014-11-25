@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.7'
 gem 'annotate'
 gem 'newrelic_rpm'
+gem 'backbone-on-rails'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
