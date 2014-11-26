@@ -33,12 +33,23 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
     map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
 
+    // // for reference:
+    // marker = new google.maps.Marker({
+    //   position: myLatlng,
+    //   map: map,
+    //   title: 'App Academy'
+    // });
+    function placeMarker(location) {
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+    }
 
-    marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title: 'App Academy'
-    });
+  google.maps.event.addListener(map, 'click', function(event) {
+    placeMarker(event.latLng)
+  });
+
 
     google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
