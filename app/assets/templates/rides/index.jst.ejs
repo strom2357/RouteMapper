@@ -1,0 +1,7 @@
+<h1>We're in the index template! Have a waffle!</h1>
+<% rides.each(function(ride) { %>
+	<div class="ride_info">
+		<div><%=ride.get('title')%></div>
+		<div><%=ride.get('date')%></div>
+	</div>
+<% }); %>

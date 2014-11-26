@@ -5,9 +5,10 @@ window.RouteMapper = {
   Routers: {},
   initialize: function() {
     alert('Hello from Backbone!');
+    new RouteMapper.Routers.Router({
+  		$rootEl: $("#content")
+  	});
+    Backbone.history.start();
   }
 };
 
-$(document).ready(function(){
-  RouteMapper.initialize();
-});
