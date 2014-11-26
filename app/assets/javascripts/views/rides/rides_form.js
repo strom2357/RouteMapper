@@ -32,7 +32,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     this.model.set(attrs);
     if (this.model.isNew()) {
       this.collection.create(attrs, {
-        // success: success
+        success: success
       })
     } else {
       this.model.save(attrs, {
