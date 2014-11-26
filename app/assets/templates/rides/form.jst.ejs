@@ -2,6 +2,16 @@
   #map-canvas { height: 600px; width: 600px; margin: 20px; padding: 0;}
 </style>
 
+   <style>
+      #directions-panel {
+        height: 100%;
+        float: left;
+        width: 390px;
+        overflow: auto;
+      }
+
+    </style>
+
 <label for='title'>Title</label>
   <input type="text" name="title"><br>
 
@@ -9,6 +19,7 @@
   <input type="date" name="date"><br>
 
 <button>Submit</button>
+<div id="directions-panel"></div>
 <div id="map-canvas"></div>
 
 

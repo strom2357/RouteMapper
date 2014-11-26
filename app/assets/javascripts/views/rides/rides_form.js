@@ -37,6 +37,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
     map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
     directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
     // // for reference:
     // marker = new google.maps.Marker({
     //   position: myLatlng,
