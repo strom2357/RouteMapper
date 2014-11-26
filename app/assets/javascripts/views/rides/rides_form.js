@@ -23,6 +23,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
 
   initMap: function () {
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
     myLatlng = new google.maps.LatLng(37.781, 237.588);
 
     mapOptions = {
@@ -32,7 +34,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     };
 
     map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
-
+    directionsDisplay.setMap(map);
     // // for reference:
     // marker = new google.maps.Marker({
     //   position: myLatlng,
@@ -46,10 +48,26 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         draggable: true
       });
     }
+ 
+    function calcRoute() {
+      var start = 'san francisco, ca';
+      var end = 'los altos, ca';
+      var request = {
+          origin:start,
+          destination:end,
+          travelMode: google.maps.TravelMode.DRIVING
+      };
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        }
+      });
+    }
 
-  google.maps.event.addListener(map, 'click', function(event) {
-    placeMarker(event.latLng)
-  });
+    google.maps.event.addListener(map, 'click', function(event) {
+      calcRoute();
+      // placeMarker(event.latLng)
+    });
 
 
     google.maps.event.trigger(map, 'resize'); 
