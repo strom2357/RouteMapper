@@ -1,5 +1,5 @@
 RouteMapper.Views.RidesForm = Backbone.View.extend({
-  
+  tagName: 'form',  
   template: JST['rides/form'],
   
 
