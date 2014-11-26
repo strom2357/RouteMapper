@@ -7,44 +7,42 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     "click button": "submit"
   },
   // initialize: function() {
-  // 	this.listenTo(this.collection, "sync", this.render)
+  //  this.listenTo(this.collection, "sync", this.render)
   // },
 
   render: function() {
-  	var renderedContent = this.template({
-  		//will need for edit
+    var renderedContent = this.template({
+      //will need for edit
       ride: this.model
-  	});
+    });
 
-  	this.$el.html(renderedContent);
-   this.initMap();
-  	return this;	
+    this.$el.html(renderedContent);
+    this.initMap();
+    return this;  
   },
 
 
-      initMap: function () {
-         myLatlng = new google.maps.LatLng(51.903679, -8.468274);
+  initMap: function () {
+    myLatlng = new google.maps.LatLng(37.781, 237.588);
 
-         mapOptions = {
-            center: myLatlng,
-            zoom: 12,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+    mapOptions = {
+      center: myLatlng,
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
 
-            map = new google.maps.Map(this.$el.find('#map-canvas')[0],
-                                      mapOptions);
+    map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
 
 
-         marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            title: 'Christians Brothers College Cork'
-        });
+    marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'App Academy'
+    });
 
-        google.maps.event.trigger(map, 'resize');
-           
-            google.maps.event.trigger($('#map-canvas'), 'resize');
-    },
+    google.maps.event.trigger(map, 'resize'); 
+    google.maps.event.trigger($('#map-canvas'), 'resize');
+  },
 
   
 
@@ -69,5 +67,3 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     }
   }
 });
-
-
