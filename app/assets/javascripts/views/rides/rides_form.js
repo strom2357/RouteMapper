@@ -28,12 +28,11 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     function success() {
       Backbone.history.navigate("", { trigger: true } )
     }
-
-    this.model.set(attrs);
     debugger
+    this.model.set(attrs);
     if (this.model.isNew()) {
       this.collection.create(attrs, {
-        success: success
+        // success: success
       })
     } else {
       this.model.save(attrs, {

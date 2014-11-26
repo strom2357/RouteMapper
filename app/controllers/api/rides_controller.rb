@@ -4,10 +4,11 @@ module Api
 			@ride = Ride.new
 		end
 
-		def create
+		def create			
 			@ride = Ride.new(ride_params)
+			@ride.user_id = current_user.id
 			if @ride.save
-				redirect_to root_url
+				render :json => @ride
 			else
 				flash.now[:errors] = @ride.errors.full_messages
 				render :new
