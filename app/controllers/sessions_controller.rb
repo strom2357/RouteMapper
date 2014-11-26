@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
 		if user
 			sign_in(user)
-			render json: "add redirect in sessions create"
+			redirect_to '#'
 		else
 			flash.now[:errors] = ["Invalid username or password"]
 			render :new
