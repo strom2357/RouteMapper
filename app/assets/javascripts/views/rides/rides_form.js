@@ -21,8 +21,10 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     return this;  
   },
 
-
+  
   initMap: function () {
+    
+    // when everything works, start pulling this out of init
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
     myLatlng = new google.maps.LatLng(37.781, 237.588);
@@ -41,17 +43,17 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     //   map: map,
     //   title: 'App Academy'
     // });
-    function placeMarker(location) {
+    function placeMarker(location){
       var marker = new google.maps.Marker({
         position: location,
         map: map,
-        draggable: true
+        // draggable: true
       });
     }
  
-    function calcRoute() {
+    function calcRoute(location) {
       var start = 'san francisco, ca';
-      var end = 'los altos, ca';
+      var end = location;
       var request = {
           origin:start,
           destination:end,
@@ -64,10 +66,13 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       });
     }
 
+
+
+
     google.maps.event.addListener(map, 'click', function(event) {
-      calcRoute();
-      // placeMarker(event.latLng)
-    });
+      placeMarker(event.latLng);
+      calcRoute(event.latLng);
+    }.bind(this));
 
 
     google.maps.event.trigger(map, 'resize'); 
