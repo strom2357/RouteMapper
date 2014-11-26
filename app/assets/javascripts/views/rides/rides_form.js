@@ -47,7 +47,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       var marker = new google.maps.Marker({
         position: location,
         map: map,
-        // draggable: true
+        draggable: true
       });
     }
  
@@ -57,7 +57,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       var request = {
           origin:start,
           destination:end,
-          travelMode: google.maps.TravelMode.DRIVING
+          travelMode: google.maps.TravelMode.BICYCLING
       };
       directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
