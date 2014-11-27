@@ -25,7 +25,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   initMap: function () {
     
     // when everything works, start pulling this out of init
-    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
     var directionsService = new google.maps.DirectionsService();
     myLatlng = new google.maps.LatLng(37.781, 237.588);
 
