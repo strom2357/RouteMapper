@@ -1,6 +1,6 @@
 RouteMapper.Collections.Rides = Backbone.Collection.extend({
 	url: '/api/rides',
-  model: RouteMapper.Models.Ride
+  	model: RouteMapper.Models.Ride
 
   // getOrFetch
 

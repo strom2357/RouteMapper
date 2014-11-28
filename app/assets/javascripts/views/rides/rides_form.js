@@ -23,7 +23,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
   
   initMap: function () {
-    
+    debugger
     // when everything works, start pulling this out of init
     
     // sketchy global variable

@@ -20,6 +20,11 @@ module Api
 			render json: @rides
 		end
 
+		def show
+			@ride = Ride.find(params[:id])
+			render json: @ride
+		end
+
 		private
 		def ride_params
 			params.require(:ride).permit(:user_id, :title, :date, :directions)
