@@ -25,6 +25,9 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   initMap: function () {
     
     // when everything works, start pulling this out of init
+    
+    // sketchy global variable
+    routeArr =[];
     var directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
     var directionsService = new google.maps.DirectionsService();
     myLatlng = new google.maps.LatLng(37.781, 237.588);
@@ -53,7 +56,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     }
  
     function calcRoute(location) {
-      debugger
       var start = 'san francisco, ca';
       var end = location;
       var request = {
@@ -63,21 +65,24 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       };
       directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-          debugger
           directionsDisplay.setDirections(response);
         }
       });
     }
 
-
-
+    function updateRouteArr() {
+      debugger
+      routeArr = directionsDisplay.getDirections().routes[0].overview_path
+    }
 
     google.maps.event.addListener(map, 'click', function(event) {
       placeMarker(event.latLng);
       calcRoute(event.latLng);
     }.bind(this));
 
-    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {debugger});
+    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+      updateRouteArr();
+    });
 
     google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
