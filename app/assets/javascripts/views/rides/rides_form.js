@@ -71,7 +71,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     }
 
     function updateRouteArr() {
-      directions = directionsDisplay.getDirections();
+      directions = JSON.stringify(directionsDisplay.getDirections());
     }
 
     google.maps.event.addListener(map, 'click', function(event) {
@@ -92,7 +92,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   submit: function(event) {
     event.preventDefault(); 
     var attrs = this.$el.serializeJSON();
-
+    attrs[directions] = directions;
     function success() {
       Backbone.history.navigate("", { trigger: true } )
     }
