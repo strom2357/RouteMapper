@@ -53,6 +53,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     }
  
     function calcRoute(location) {
+      debugger
       var start = 'san francisco, ca';
       var end = location;
       var request = {
@@ -62,6 +63,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       };
       directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
+          debugger
           directionsDisplay.setDirections(response);
         }
       });
@@ -75,6 +77,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       calcRoute(event.latLng);
     }.bind(this));
 
+    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {debugger});
 
     google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
@@ -83,7 +86,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   
 
   submit: function(event) {
-
     event.preventDefault(); 
     var attrs = this.$el.serializeJSON();
 
