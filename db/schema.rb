@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20141128223408) do
     t.date     "date",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "directions"
+    t.text     "directions"
   end
 
   create_table "users", force: true do |t|

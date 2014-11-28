@@ -92,12 +92,14 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   submit: function(event) {
     event.preventDefault(); 
     var attrs = this.$el.serializeJSON();
-    attrs[directions] = directions;
+    attrs["directions"] = directions;
+    debugger
     function success() {
       Backbone.history.navigate("", { trigger: true } )
     }
 
     this.model.set(attrs);
+    debugger
     if (this.model.isNew()) {
       this.collection.create(attrs, {
         success: success
