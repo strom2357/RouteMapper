@@ -7,7 +7,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     "click button": "submit"
   },
   initialize: function() {
-   this.listenTo(this.collection, "sync initMap", this.render)
+   this.listenTo(this.collection, "sync", this.render)
   },
 
   render: function() {
@@ -41,11 +41,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     directionsDisplay.setMap(map);
     // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
 
-    if (this.model.get('directions')) {
-      var dirs = JSON.parse(this.model.get('directions'))
-      directionsDisplay.setDirections(dirs)
-    };
-
     // // for reference:
     // marker = new google.maps.Marker({
     //   position: myLatlng,
@@ -62,8 +57,11 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
  
     stopsArr = [];
     lastStepsArr = [];
+    stepsCount = [];
     waypointArr = [];
     waypointsArr = [];
+    //on "undo", look at stepsCount[-1] and remove that many steps from
+    // last steps arr, then, remove that number from stepCount.  Re-call calcRoute.
     function calcRoute(location) {
       var stopNum = stopsArr.length;
       if (stopNum > 1) { 
@@ -79,10 +77,10 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
         directionsService.route(request, function(response, status) {
           if (status == google.maps.DirectionsStatus.OK) {
-
             response.routes[0].legs[0].steps.forEach(function(step) {
               lastStepsArr.push(step)
             })
+            stepsCount.push(response.routes[0].legs[0].steps.length);
             response.routes[0].legs[0].steps = lastStepsArr;
             response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
             response.routes[0].legs[0].via_waypoint = waypointArr;
@@ -95,20 +93,21 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       
 
       
-      var flightPath = new google.maps.Polyline({
-        path: lastStepsArr,
-        geodesic: true,
-        strokeColor: '#0000FF',
-        strokeOpacity: 1.0,
-        strokeWeight: 3
-      });
+      // var flightPath = new google.maps.Polyline({
+      //   path: lastStepsArr,
+      //   geodesic: true,
+      //   strokeColor: '#0000FF',
+      //   strokeOpacity: 1.0,
+      //   strokeWeight: 3
+      // });
 
       
 
-      flightPath.setMap(map);
+      // flightPath.setMap(map);
     }
 
     function updateRouteArr() {
+      debugger
       directions = JSON.stringify(directionsDisplay.getDirections());
     }
 
@@ -125,11 +124,17 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       lastStepsArr = directionsDisplay.directions.routes[0].legs[0].steps;
       waypointArr = directionsDisplay.directions.routes[0].legs[0].via_waypoint;
       waypointsArr = directionsDisplay.directions.routes[0].legs[0].via_waypoints;
-      debugger
+      updateRouteArr();
+      
     });
 
     // google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
+     if (this.model.get('directions')) {
+      var dirs = JSON.parse(this.model.get('directions'))
+      directionsDisplay.setDirections(dirs)
+      debugger
+    };
   },
 
   
