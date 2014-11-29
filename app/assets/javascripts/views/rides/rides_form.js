@@ -6,13 +6,13 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   events: {
     "click button": "submit"
   },
-  // initialize: function() {
-  //  this.listenTo(this.collection, "sync", this.render)
-  // },
+  initialize: function() {
+   this.listenTo(this.collection, "sync", this.render)
+  },
 
   render: function() {
     var renderedContent = this.template({
-      //will need for edit
+      
       ride: this.model
     });
 
@@ -23,7 +23,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
   
   initMap: function () {
-    debugger
     // when everything works, start pulling this out of init
     
     // sketchy global variable

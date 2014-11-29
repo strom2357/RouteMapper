@@ -30,13 +30,15 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 	},
 	// need api/rails show ...
 	show: function(id) {
+		
 		var ride = RouteMapper.Collections.rides.getOrFetch(id);
-		var showView = new RouteMapper.Views.RideShow({
-			model: ride
+		var showView = new RouteMapper.Views.RidesForm({
+			model: ride,
+			collection: RouteMapper.Collections.rides
 		})
 
 		this._swapView(showView);
-	}
+	},
 
 	_swapView: function(view) {
 		this._currentView && this._currentView.remove();
