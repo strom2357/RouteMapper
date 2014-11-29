@@ -1,3 +1,16 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.sign_in {
+	font-family: verdana;
+	border: 2px solid red;
+	width: 20%;
+	height: 300px;
+	margin: 10% 40%;
+}
+
+.sign_in form * 	{
+	style: inline-block;
+	width: 100%;
+	border: 2px solid red;	
+}

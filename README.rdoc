@@ -70,3 +70,8 @@ Please feel free to use a different markup language if you do not plan to run
 
 ####
 render header partial in views/application.js
+
+
+
+--on click, add a line between the n-1 and nth points
+(on delete, remove line between the n-1 and nth and then delete the nth point)

@@ -7,7 +7,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     "click button": "submit"
   },
   initialize: function() {
-   this.listenTo(this.collection, "sync", this.render)
+   this.listenTo(this.collection, "sync initMap", this.render)
   },
 
   render: function() {
@@ -39,7 +39,14 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
     map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
     directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
+    // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
+
+    if (this.model.get('directions')) {
+      debugger
+      var dirs = JSON.parse(this.model.get('directions'))
+      directionsDisplay.setDirections(dirs)
+    };
+
     // // for reference:
     // marker = new google.maps.Marker({
     //   position: myLatlng,
@@ -54,19 +61,52 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       });
     }
  
+    stopsArr = [];
+    lastStepsArr = [];
     function calcRoute(location) {
-      var start = 'san francisco, ca';
-      var end = location;
-      var request = {
+      var stopNum = stopsArr.length;
+      if (stopNum > 1) { 
+        var start = stopsArr[stopNum-2];
+        var end = stopsArr[stopNum-1];
+        var request = {
           origin:start,
           destination:end,
+
           travelMode: google.maps.TravelMode.BICYCLING
-      };
-      directionsService.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
-        }
+        };
+
+
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            debugger
+            response.routes[0].legs[0].steps.forEach(function(step) {
+              lastStepsArr.push(step)
+            })
+            response.routes[0].legs[0].steps = lastStepsArr;
+            directionsDisplay.setDirections(response);
+          }
+        });
+      }
+      
+          var flightPlanCoordinates = [
+        new google.maps.LatLng(37.772323, -122.214897),
+        new google.maps.LatLng(21.291982, -157.821856),
+        new google.maps.LatLng(-18.142599, 178.431),
+        new google.maps.LatLng(-27.46758, 153.027892)
+      ];
+
+      
+      var flightPath = new google.maps.Polyline({
+        path: lastStepsArr,
+        geodesic: true,
+        strokeColor: '#0000FF',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
       });
+
+      
+
+      flightPath.setMap(map);
     }
 
     function updateRouteArr() {
@@ -74,13 +114,17 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     }
 
     google.maps.event.addListener(map, 'click', function(event) {
+      
       placeMarker(event.latLng);
+      stopsArr.push(event.latLng);
+      // lastStepsArr = [];
       calcRoute(event.latLng);
+
     }.bind(this));
 
-    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-      updateRouteArr();
-    });
+    // google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+    //   updateRouteArr();
+    // });
 
     google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
