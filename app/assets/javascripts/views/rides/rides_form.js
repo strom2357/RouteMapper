@@ -42,7 +42,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
 
     if (this.model.get('directions')) {
-      debugger
       var dirs = JSON.parse(this.model.get('directions'))
       directionsDisplay.setDirections(dirs)
     };
@@ -63,6 +62,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
  
     stopsArr = [];
     lastStepsArr = [];
+    waypointArr = [];
+    waypointsArr = [];
     function calcRoute(location) {
       var stopNum = stopsArr.length;
       if (stopNum > 1) { 
@@ -78,22 +79,20 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
         directionsService.route(request, function(response, status) {
           if (status == google.maps.DirectionsStatus.OK) {
-            debugger
+
             response.routes[0].legs[0].steps.forEach(function(step) {
               lastStepsArr.push(step)
             })
             response.routes[0].legs[0].steps = lastStepsArr;
+            response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
+            response.routes[0].legs[0].via_waypoint = waypointArr;
+            response.routes[0].legs[0].via_waypoints = waypointsArr;
+            response.lc.origin = lastStepsArr[0].start_location;
             directionsDisplay.setDirections(response);
           }
         });
       }
       
-          var flightPlanCoordinates = [
-        new google.maps.LatLng(37.772323, -122.214897),
-        new google.maps.LatLng(21.291982, -157.821856),
-        new google.maps.LatLng(-18.142599, 178.431),
-        new google.maps.LatLng(-27.46758, 153.027892)
-      ];
 
       
       var flightPath = new google.maps.Polyline({
@@ -122,11 +121,14 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
     }.bind(this));
 
-    // google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-    //   updateRouteArr();
-    // });
+    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+      lastStepsArr = directionsDisplay.directions.routes[0].legs[0].steps;
+      waypointArr = directionsDisplay.directions.routes[0].legs[0].via_waypoint;
+      waypointsArr = directionsDisplay.directions.routes[0].legs[0].via_waypoints;
+      debugger
+    });
 
-    google.maps.event.trigger(map, 'resize'); 
+    // google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
   },
 
