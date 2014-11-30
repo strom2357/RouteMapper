@@ -87,12 +87,11 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
             response.routes[0].legs[0].via_waypoints = waypointsArr;
             response.lc.origin = lastStepsArr[0].start_location;
             directionsDisplay.setDirections(response);
+            var distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
+            this.$el.find('#distance').html(distance);
           }
-        });
-      }
-      
-
-      
+        }.bind(this))
+      }.bind(this)
       // var flightPath = new google.maps.Polyline({
       //   path: lastStepsArr,
       //   geodesic: true,
@@ -101,13 +100,17 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       //   strokeWeight: 3
       // });
 
-      
-
       // flightPath.setMap(map);
     }
 
+    // function updateDistance() {
+    //   distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
+    //   this.$el.find('#distance').html(distance);
+    // }
+//-- OKAAAIII
+    // this.$el.find('#distance').html("HI");
+
     function updateRouteArr() {
-      debugger
       directions = JSON.stringify(directionsDisplay.getDirections());
     }
 
@@ -125,16 +128,33 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       waypointArr = directionsDisplay.directions.routes[0].legs[0].via_waypoint;
       waypointsArr = directionsDisplay.directions.routes[0].legs[0].via_waypoints;
       updateRouteArr();
-      
-    });
+      updateElevation();
+      // updateDistance().bind(this);
+    }.bind(this));
 
     // google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
-     if (this.model.get('directions')) {
-      var dirs = JSON.parse(this.model.get('directions'))
-      directionsDisplay.setDirections(dirs)
-      debugger
-    };
+    //  if (this.model.get('directions')) {
+    //   var dirs = JSON.parse(this.model.get('directions'))
+    //   directionsDisplay.setDirections(dirs)
+    //   debugger
+    // };
+
+    // ----- ELEVATION GRAPH LOGIC ---------
+    function updateElevation () {
+      allEfs = [];
+      lastStepsArr.forEach(function(step) { step.path.forEach(function(ef) {allEfs.push(ef)})})
+      elevator = new google.maps.ElevationService();
+      var pathRequest = {
+        'path': allEfs,
+        'samples': 512
+      }
+      elevator.getElevationAlongPath(pathRequest, toDo)
+    }
+
+    function toDo(result) {
+      debugger 
+    }
   },
 
   

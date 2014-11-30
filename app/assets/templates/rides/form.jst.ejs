@@ -1,27 +1,19 @@
-<style type="text/css">
-  #map-canvas { height: 800px; width: 800px; margin: 20px; padding: 0;}
-</style>
+<div id="new-map">
+	<div class="form">
+		<label for='title'>Title</label>
+		  <input type="text" name="title" value="<%=ride.get('title')%>"><br>
 
-   <style>
-      #directions-panel {
-        height: 100%;
-        float: left;
-        width: 390px;
-        overflow: auto;
-      }
+		<label for='date'>Date</label>
+		  <input type="date" name="date" value="<%=ride.get('date')%>"><br>
 
-    </style>
-
-<label for='title'>Title</label>
-  <input type="text" name="title" value="<%=ride.get('title')%>"><br>
-
-<label for='date'>Date</label>
-  <input type="date" name="date" value="<%=ride.get('date')%>"><br>
-
-<button>Submit</button>
-<div id="directions-panel"></div>
-<div id="map-canvas"></div>
-
+		<button>Submit</button>
+	</div>
+	<div id="map">
+		<div id="map-canvas"></div>
+		<div id="elevation_chart"></div>
+		<div id="distance"></div>
+	</div>
+</div>
 
 
 
