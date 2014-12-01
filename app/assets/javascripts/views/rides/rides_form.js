@@ -29,7 +29,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     for (var i = 0; i < stepNum; i++) {
       lastStepsArr.pop();
     }
-
+    var marker = markers.pop();
+    marker.setMap(null);
     this.undoCalcRoute();
   },
 
@@ -37,6 +38,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     stopsArr = [];
     lastStepsArr = [];
     stepsCount = [];
+    markers = [];
     // waypointArr = [];
     // waypointsArr = [];
   },
@@ -45,8 +47,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       var marker = new google.maps.Marker({
         position: location,
         map: map,
-        // draggable: true
       });
+      markers.push(marker);
     },
 
     undoCalcRoute: function() {
@@ -96,7 +98,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
             // response.routes[0].legs[0].via_waypoint = waypointArr;
             // response.routes[0].legs[0].via_waypoints = waypointsArr;
             response.lc.origin = lastStepsArr[0].start_location;
-            debugger
             directionsDisplay.setDirections(response);
             // var distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
             // this.$el.find('#distance').html(distance);
@@ -197,13 +198,12 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     event.preventDefault(); 
     var attrs = this.$el.serializeJSON();
     attrs["directions"] = directions;
-    debugger
+
     function success() {
       Backbone.history.navigate("", { trigger: true } )
     }
 
     this.model.set(attrs);
-    debugger
     if (this.model.isNew()) {
       this.collection.create(attrs, {
         success: success
