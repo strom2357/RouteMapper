@@ -29,7 +29,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     for (var i = 0; i < stepNum; i++) {
       lastStepsArr.pop();
     }
-    this.calcRoute();
+
+    this.undoCalcRoute();
   },
 
   setGlobals: function() {
@@ -46,6 +47,29 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         map: map,
         // draggable: true
       });
+    },
+
+    undoCalcRoute: function() {
+      var stopNum = stopsArr.length;
+      if (stopNum > 1) {
+        var start = stopsArr[stopNum-2];
+        var end = stopsArr[stopNum-1];
+        var request = {
+          origin:start,
+          destination:end,
+
+          travelMode: google.maps.TravelMode.BICYCLING
+        }
+
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            response.routes[0].legs[0].steps = lastStepsArr;
+            response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
+            response.lc.origin = lastStepsArr[0].start_location;
+            directionsDisplay.setDirections(response);
+          }
+        });
+      }
     },
 
     calcRoute: function() {
@@ -72,6 +96,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
             // response.routes[0].legs[0].via_waypoint = waypointArr;
             // response.routes[0].legs[0].via_waypoints = waypointsArr;
             response.lc.origin = lastStepsArr[0].start_location;
+            debugger
             directionsDisplay.setDirections(response);
             // var distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
             // this.$el.find('#distance').html(distance);
@@ -110,17 +135,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     directionsDisplay.setMap(map);
     // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
 
-    // // for reference:
-    // marker = new google.maps.Marker({
-    //   position: myLatlng,
-    //   map: map,
-    //   title: 'App Academy'
-    // });
+  
    
- 
-    //on "undo", look at stepsCount[-1] and remove that many steps from
-    // last steps arr, then, remove that number from stepCount.  Re-call calcRoute.
-
     // function updateDistance() {
     //   distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
     //   this.$el.find('#distance').html(distance);
@@ -133,7 +149,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     }
 
     google.maps.event.addListener(map, 'click', function(event) {
-      
       this.placeMarker(event.latLng);
       stopsArr.push(event.latLng);
       // lastStepsArr = [];
@@ -172,7 +187,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     }
 
     function toDo(result) {
-      debugger 
+      // debugger 
     }
   },
 
