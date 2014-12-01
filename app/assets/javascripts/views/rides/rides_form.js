@@ -125,7 +125,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     
     // sketchy global variable
     directions = {};
-    directionsDisplay = new google.maps.DirectionsRenderer({draggable: false});
+    directionsDisplay = new google.maps.DirectionsRenderer({draggable: false, preserveViewport: true});
     directionsService = new google.maps.DirectionsService();
     myLatlng = new google.maps.LatLng(37.781, 237.588);
 
