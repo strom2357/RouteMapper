@@ -71,6 +71,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
             directionsDisplay.setDirections(response);
           }
         });
+      } else {
+        directionsDisplay.set('directions', null);
       }
     },
 
