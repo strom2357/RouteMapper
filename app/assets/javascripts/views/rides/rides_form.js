@@ -81,6 +81,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       if (stopNum > 1) { 
         var start = stopsArr[stopNum-2];
         var end = stopsArr[stopNum-1];
+        debugger
         var request = {
           origin:start,
           destination:end,
@@ -147,9 +148,9 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 //-- OKAAAIII
     // this.$el.find('#distance').html("HI");
 
-    function updateRouteArr() {
-      directions = JSON.stringify(directionsDisplay.getDirections());
-    }
+    // function updateRouteArr() {
+    //   directions = JSON.stringify(directionsDisplay.getDirections());
+    // }
 
     google.maps.event.addListener(map, 'click', function(event) {
       this.placeMarker(event.latLng);
@@ -171,11 +172,44 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
     // google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
-    //  if (this.model.get('directions')) {
-    //   var dirs = JSON.parse(this.model.get('directions'))
-    //   directionsDisplay.setDirections(dirs)
-    //   debugger
-    // };
+     if (this.model.get('directions')) {
+      var dirs = JSON.parse(this.model.get('directions'))
+      
+
+      // in serialization, latLngs get turned into objects with lat and lng,
+      // but not of google's latLng class.  Need to convert.
+      dirs.stopsArr.forEach(function (stop) {
+        var stopLatLng = new google.maps.LatLng(stop.k, stop.B);
+        stopsArr.push(stopLatLng);
+      });
+
+      lastStepsArr = dirs.lastStepsArr;
+      lastStepsArr.forEach(function(stepsArr) {
+        var efLatLngs = [];  
+        var pathLatLngs = [];
+        stepsArr.lat_lngs.forEach(function(latLng) {
+          var efLatLng = new google.maps.LatLng(latLng.k, latLng.B);
+          efLatLngs.push(efLatLng);
+        });
+
+        stepsArr.lat_lngs = efLatLngs;
+
+        stepsArr.path.forEach(function(latLng) {
+          var pathLatLng = new google.maps.LatLng(latLng.k, latLng.B);
+          pathLatLngs.push(pathLatLng);
+        });
+
+        stepsArr.path = pathLatLngs;
+
+        stepsArr.end_location = new google.maps.LatLng(stepsArr.end_location.k, stepsArr.end_location.B);
+        stepsArr.end_point = new google.maps.LatLng(stepsArr.end_point.k, stepsArr.end_point.B);
+        stepsArr.start_location = new google.maps.LatLng(stepsArr.start_location.k, stepsArr.start_location.B);
+        stepsArr.start_point = new google.maps.LatLng(stepsArr.start_point.k, stepsArr.start_point.B);
+      })
+      stepsCount = dirs.stepsCount;
+      this.undoCalcRoute();
+
+    };
 
     // ----- ELEVATION GRAPH LOGIC ---------
     function updateElevation () {
@@ -199,8 +233,15 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   submit: function(event) {
     event.preventDefault(); 
     var attrs = this.$el.serializeJSON();
-    attrs["directions"] = directions;
-
+    
+    var directions = {
+      stopsArr:stopsArr,
+      lastStepsArr:lastStepsArr,
+      stepsCount:stepsCount
+      // come back and just store latLngs of markers, not map reference
+      // markers:markers
+    };
+    attrs["directions"] = JSON.stringify(directions);
     function success() {
       Backbone.history.navigate("", { trigger: true } )
     }
