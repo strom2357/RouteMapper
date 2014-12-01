@@ -4,7 +4,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   
 
   events: {
-    "click button": "submit"
+    "click .submit": "submit",
+    "click .undo" : "undo"
   },
   initialize: function() {
    this.listenTo(this.collection, "sync", this.render)
@@ -17,52 +18,37 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     });
 
     this.$el.html(renderedContent);
+    this.setGlobals();
     this.initMap();
     return this;  
   },
 
-  
-  initMap: function () {
-    // when everything works, start pulling this out of init
-    
-    // sketchy global variable
-    directions = {};
-    var directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
-    var directionsService = new google.maps.DirectionsService();
-    myLatlng = new google.maps.LatLng(37.781, 237.588);
-
-    mapOptions = {
-      center: myLatlng,
-      zoom: 12,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
-    directionsDisplay.setMap(map);
-    // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
-
-    // // for reference:
-    // marker = new google.maps.Marker({
-    //   position: myLatlng,
-    //   map: map,
-    //   title: 'App Academy'
-    // });
-    function placeMarker(location){
-      var marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        draggable: true
-      });
+  undo: function() {
+    stopsArr.pop();
+    stepNum = stepsCount.pop()
+    for (var i = 0; i < stepNum; i++) {
+      lastStepsArr.pop();
     }
- 
+    this.calcRoute();
+  },
+
+  setGlobals: function() {
     stopsArr = [];
     lastStepsArr = [];
     stepsCount = [];
-    waypointArr = [];
-    waypointsArr = [];
-    //on "undo", look at stepsCount[-1] and remove that many steps from
-    // last steps arr, then, remove that number from stepCount.  Re-call calcRoute.
-    function calcRoute(location) {
+    // waypointArr = [];
+    // waypointsArr = [];
+  },
+  
+    placeMarker: function(location){
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        // draggable: true
+      });
+    },
+
+    calcRoute: function() {
       var stopNum = stopsArr.length;
       if (stopNum > 1) { 
         var start = stopsArr[stopNum-2];
@@ -83,15 +69,16 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
             stepsCount.push(response.routes[0].legs[0].steps.length);
             response.routes[0].legs[0].steps = lastStepsArr;
             response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
-            response.routes[0].legs[0].via_waypoint = waypointArr;
-            response.routes[0].legs[0].via_waypoints = waypointsArr;
+            // response.routes[0].legs[0].via_waypoint = waypointArr;
+            // response.routes[0].legs[0].via_waypoints = waypointsArr;
             response.lc.origin = lastStepsArr[0].start_location;
             directionsDisplay.setDirections(response);
-            var distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
-            this.$el.find('#distance').html(distance);
+            // var distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
+            // this.$el.find('#distance').html(distance);
           }
-        }.bind(this))
-      }.bind(this)
+        });
+      }
+  
       // var flightPath = new google.maps.Polyline({
       //   path: lastStepsArr,
       //   geodesic: true,
@@ -101,7 +88,38 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       // });
 
       // flightPath.setMap(map);
-    }
+    },
+
+
+  initMap: function () {
+    // when everything works, start pulling this out of init
+    
+    // sketchy global variable
+    directions = {};
+    directionsDisplay = new google.maps.DirectionsRenderer({draggable: false});
+    directionsService = new google.maps.DirectionsService();
+    myLatlng = new google.maps.LatLng(37.781, 237.588);
+
+    mapOptions = {
+      center: myLatlng,
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
+    directionsDisplay.setMap(map);
+    // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
+
+    // // for reference:
+    // marker = new google.maps.Marker({
+    //   position: myLatlng,
+    //   map: map,
+    //   title: 'App Academy'
+    // });
+   
+ 
+    //on "undo", look at stepsCount[-1] and remove that many steps from
+    // last steps arr, then, remove that number from stepCount.  Re-call calcRoute.
 
     // function updateDistance() {
     //   distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
@@ -116,21 +134,22 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
     google.maps.event.addListener(map, 'click', function(event) {
       
-      placeMarker(event.latLng);
+      this.placeMarker(event.latLng);
       stopsArr.push(event.latLng);
       // lastStepsArr = [];
-      calcRoute(event.latLng);
+      this.calcRoute();
 
     }.bind(this));
 
-    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-      lastStepsArr = directionsDisplay.directions.routes[0].legs[0].steps;
-      waypointArr = directionsDisplay.directions.routes[0].legs[0].via_waypoint;
-      waypointsArr = directionsDisplay.directions.routes[0].legs[0].via_waypoints;
-      updateRouteArr();
-      updateElevation();
+    // You needed this if you want to drag routes
+    // google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+      // lastStepsArr = directionsDisplay.directions.routes[0].legs[0].steps;
+      // waypointArr = directionsDisplay.directions.routes[0].legs[0].via_waypoint;
+      // waypointsArr = directionsDisplay.directions.routes[0].legs[0].via_waypoints;
+      // updateRouteArr();
+      // updateElevation();
       // updateDistance().bind(this);
-    }.bind(this));
+    // }.bind(this));
 
     // google.maps.event.trigger(map, 'resize'); 
     google.maps.event.trigger($('#map-canvas'), 'resize');
