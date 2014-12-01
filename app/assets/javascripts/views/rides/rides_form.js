@@ -208,7 +208,15 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       })
       stepsCount = dirs.stepsCount;
       this.undoCalcRoute();
+      dirs.markerCoords.forEach(function(coords) {
+        var pos = new google.maps.LatLng(coords.k, coords.B);
 
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+        });
+        markers.push(marker);
+      })
     };
 
     // ----- ELEVATION GRAPH LOGIC ---------
@@ -237,10 +245,15 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     var directions = {
       stopsArr:stopsArr,
       lastStepsArr:lastStepsArr,
-      stepsCount:stepsCount
-      // come back and just store latLngs of markers, not map reference
-      // markers:markers
+      stepsCount:stepsCount,
+      markerCoords:[]
     };
+
+    markers.forEach(function(marker) {
+      directions.markerCoords.push(marker.position)
+    });
+
+
     attrs["directions"] = JSON.stringify(directions);
     function success() {
       Backbone.history.navigate("", { trigger: true } )
