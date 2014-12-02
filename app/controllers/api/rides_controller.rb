@@ -33,6 +33,7 @@ module Api
 
 		def index
 			@rides = current_user.rides
+			# add followed user rides to this
 			render json: @rides
 		end
 

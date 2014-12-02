@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
 		through: :followings,
 		source: :followed_user
 	)
+	has_many(
+		:followed_rides,
+		through: :followed_users,
+		source: :rides
+	)
 
 	after_initialize :ensure_session_token
 
