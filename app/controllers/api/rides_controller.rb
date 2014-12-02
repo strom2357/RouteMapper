@@ -4,6 +4,22 @@ module Api
 			@ride = Ride.new
 		end
 
+		# def edit
+		# 	@ride = Ride.find(params[:id])
+		# 	render json: @ride
+		# end
+
+		
+	    def update
+	      @ride = Ride.find(params[:id])
+	      if @ride.update_attributes(ride_params)
+	        render json: @ride
+	      else
+	        render json: @ride.errors.full_messages,
+           	status: :unprocessable_entity
+	      end
+	    end
+
 		def create			
 			@ride = Ride.new(ride_params)
 			@ride.user_id = current_user.id

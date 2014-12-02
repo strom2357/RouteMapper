@@ -6,7 +6,8 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 	routes: {
 		"": "index",
 		"rides/new": "new",
-		"rides/:id": "show"
+		"rides/:id": "show",
+		"rides/edit/:id": "edit"
 	},
 
 	index: function() {
@@ -28,7 +29,18 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 
 		this._swapView(formView);
 	},
-	// need api/rails show ...
+	
+	edit: function(id) {
+		var ride = RouteMapper.Collections.rides.getOrFetch(id);
+		var formView = new RouteMapper.Views.RidesForm({
+			model: ride,
+			collection: RouteMapper.Collections.rides
+		})
+
+		this._swapView(formView);
+	},
+
+
 	show: function(id) {
 		
 		var ride = RouteMapper.Collections.rides.getOrFetch(id);

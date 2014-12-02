@@ -287,7 +287,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       stopsArr:stopsArr,
       lastStepsArr:lastStepsArr,
       stepsCount:stepsCount,
-      markerCoords:[]
+      markerCoords:[] 
     };
 
     markers.forEach(function(marker) {
