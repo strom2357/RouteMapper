@@ -11,6 +11,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   initialize: function() {
     this.listenTo(this.collection, "sync", this.render)
   },
+  
 
   render: function() {
     debugger
@@ -19,6 +20,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         'callback':'', 'packages':['corechart', 'columnchart']
       })
     }, 2000)
+
 
     var renderedContent = this.template({
       
@@ -43,6 +45,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   },
 
   setGlobals: function() {
+    chart = 0;
     stopsArr = [];
     lastStepsArr = [];
     stepsCount = [];
@@ -234,13 +237,29 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       'path': allEfs,
       'samples': 512
     }
-    debugger
     elevator.getElevationAlongPath(pathRequest, this.toDo)
   },
 
   toDo: function(results) {
-    debugger
-    chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
+    
+    // create chart once...
+    if (chart == 0) {
+      chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
+    }
+    
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Sample');
+    data.addColumn('number', 'Elevation');
+    for (var i = 0; i < results.length; i++) {
+      data.addRow(['', results[i].elevation]);
+    };
+    
+    chart.draw(data, {
+      width: 640,
+      height: 200,
+      legend: 'none',
+      titleY: 'Elevation (m)'
+    });
   },
 
 
