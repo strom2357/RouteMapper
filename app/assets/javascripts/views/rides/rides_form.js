@@ -222,6 +222,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         });
         markers.push(marker);
       })
+      setTimeout(function() {this.updateElevation()}.bind(this), 2000).bind(this);
     };
 
     // ----- ELEVATION GRAPH LOGIC ---------
@@ -261,7 +262,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         totalClimb += results[i].elevation-results[i-1].elevation
       }
     };
-    debugger
+    
     totalClimb = Number(totalClimb*3.28084).toFixed(2);
 
 
@@ -271,7 +272,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       legend: 'none',
       titleY: 'Elevation (m)'
     });
-    debugger
+    
     $('#climb').html(totalClimb + " feet");
     
   },

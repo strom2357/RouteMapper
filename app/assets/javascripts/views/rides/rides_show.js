@@ -198,6 +198,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
         });
         markers.push(marker);
       })
+      this.updateElevation();
     };
 
     // ----- ELEVATION GRAPH LOGIC ---------
