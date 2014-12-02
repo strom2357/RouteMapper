@@ -5,6 +5,12 @@ class User < ActiveRecord::Base
 	attr_reader :password
 
 	has_many(:rides)
+	has_many(:followings)
+	has_many(
+		:followed_users,
+		through: :followings,
+		source: :followed_user
+	)
 
 	after_initialize :ensure_session_token
 

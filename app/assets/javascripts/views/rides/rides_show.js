@@ -1,11 +1,10 @@
 RouteMapper.Views.RidesShow = Backbone.View.extend({
   tagName: 'form',  
-  template: JST['rides/form'],
+  template: JST['rides/show'],
   
 
   events: {
-    "click .submit": "submit",
-    "click .undo" : "undo"
+    "click .edit" : "edit"
   },
 
   initialize: function() {
@@ -15,7 +14,6 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
   
 
   render: function() {
-    debugger
     setTimeout(function(){
       google.load('visualization', '1', {
         'callback':'', 'packages':['corechart', 'columnchart']
@@ -195,6 +193,10 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     elevator.getElevationAlongPath(pathRequest, this.toDo)
   },
 
+  edit: function() {
+
+  },
+
   toDo: function(results) {
     totalClimb = 0;
 
@@ -229,42 +231,4 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     $('#climb').html(totalClimb + " feet");
     
   },
-
-
-
-  submit: function(event) {
-    event.preventDefault(); 
-    var attrs = this.$el.serializeJSON();
-    
-    var directions = {
-      stopsArr:stopsArr,
-      lastStepsArr:lastStepsArr,
-      stepsCount:stepsCount,
-      markerCoords:[]
-    };
-
-    markers.forEach(function(marker) {
-      directions.markerCoords.push(marker.position)
-    });
-
-
-    attrs["directions"] = JSON.stringify(directions);
-    attrs["distance"] = distance;
-    attrs["elevation"] = totalClimb;
-    debugger
-    function success() {
-      Backbone.history.navigate("", { trigger: true } )
-    }
-
-    this.model.set(attrs);
-    if (this.model.isNew()) {
-      this.collection.create(attrs, {
-        success: success
-      })
-    } else {
-      this.model.save(attrs, {
-        success: success
-      })
-    }
-  }
 });

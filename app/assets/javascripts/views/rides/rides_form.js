@@ -14,7 +14,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   
 
   render: function() {
-    debugger
     setTimeout(function(){
       google.load('visualization', '1', {
         'callback':'', 'packages':['corechart', 'columnchart']
@@ -222,7 +221,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         });
         markers.push(marker);
       })
-      setTimeout(function() {this.updateElevation()}.bind(this), 2000).bind(this);
+      setTimeout(function() {this.updateElevation()}.bind(this), 5000).bind(this);
     };
 
     // ----- ELEVATION GRAPH LOGIC ---------
