@@ -1,18 +1,26 @@
 RouteMapper.Views.RidesShow = Backbone.View.extend({
   tagName: 'form',  
-  template: JST['rides/show'],
+  template: JST['rides/form'],
   
 
   events: {
-    // "click .submit": "submit",
-    // "click .undo" : "undo"
+    "click .submit": "submit",
+    "click .undo" : "undo"
   },
 
   initialize: function() {
     this.listenTo(this.collection, "sync", this.render)
   },
+  
 
   render: function() {
+    setTimeout(function(){
+      google.load('visualization', '1', {
+        'callback':'', 'packages':['corechart', 'columnchart']
+      })
+    }, 2000)
+
+
     var renderedContent = this.template({
       
       ride: this.model
@@ -25,6 +33,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
   },
 
   setGlobals: function() {
+    chart = 0;
     stopsArr = [];
     lastStepsArr = [];
     stepsCount = [];
@@ -33,81 +42,29 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     // waypointsArr = [];
   },
   
-  placeMarker: function(location){
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map,
-    });
-    markers.push(marker);
-  },
+
 
     undoCalcRoute: function() {
-      var stopNum = stopsArr.length;
-      if (stopNum > 1) {
-        var start = stopsArr[stopNum-2];
-        var end = stopsArr[stopNum-1];
-        var request = {
-          origin:start,
-          destination:end,
+      var pathToPlot = [];
+      lastStepsArr.forEach(function(step) {
+        step.path.forEach(function (pathGf) {
+          pathToPlot.push(pathGf);
+        })
+      });
+      
 
-          travelMode: google.maps.TravelMode.BICYCLING
-        }
+      var flightPath = new google.maps.Polyline({
+        path: pathToPlot,
+        geodesic: true,
+        strokeColor: '#0000FF',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+      });
 
-        directionsService.route(request, function(response, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-            response.routes[0].legs[0].steps = lastStepsArr;
-            response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
-            response.lc.origin = lastStepsArr[0].start_location;
-            directionsDisplay.setDirections(response);
-          }
-        });
-      } else {
-        directionsDisplay.set('directions', null);
-      }
+      flightPath.setMap(map);
     },
 
-    calcRoute: function() {
-      var stopNum = stopsArr.length;
-      if (stopNum > 1) { 
-        var start = stopsArr[stopNum-2];
-        var end = stopsArr[stopNum-1];
-        var request = {
-          origin:start,
-          destination:end,
-
-          travelMode: google.maps.TravelMode.BICYCLING
-        };
-
-
-        directionsService.route(request, function(response, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-            response.routes[0].legs[0].steps.forEach(function(step) {
-              lastStepsArr.push(step)
-            })
-            stepsCount.push(response.routes[0].legs[0].steps.length);
-            response.routes[0].legs[0].steps = lastStepsArr;
-            response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
-            // response.routes[0].legs[0].via_waypoint = waypointArr;
-            // response.routes[0].legs[0].via_waypoints = waypointsArr;
-            response.lc.origin = lastStepsArr[0].start_location;
-            directionsDisplay.setDirections(response);
-            // var distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
-            // this.$el.find('#distance').html(distance);
-          }
-        });
-      }
-  
-      // var flightPath = new google.maps.Polyline({
-      //   path: lastStepsArr,
-      //   geodesic: true,
-      //   strokeColor: '#0000FF',
-      //   strokeOpacity: 1.0,
-      //   strokeWeight: 3
-      // });
-
-      // flightPath.setMap(map);
-    },
-
+    
     updateDistance: function() {
       distance = 0;
       lastStepsArr.forEach(function(step) {
@@ -121,9 +78,10 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
 
 
   initMap: function () {
+    // google.load("visualization", "1", {packages:["columnchart"]});
+    // debugger
     directions = {};
     directionsDisplay = new google.maps.DirectionsRenderer({draggable: false, preserveViewport: true});
-    directionsService = new google.maps.DirectionsService();
     myLatlng = new google.maps.LatLng(37.781, 237.588);
 
     mapOptions = {
@@ -137,19 +95,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
 
 
-    google.maps.event.addListener(map, 'click', function(event) {
-      this.placeMarker(event.latLng);
-      stopsArr.push(event.latLng);
-      // lastStepsArr = [];
-      this.calcRoute();
-    }.bind(this));
-
-    // You needed this if you want to drag routes
-    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-      this.updateElevation();
-      this.updateDistance();
-    }.bind(this));
-
+   
     // google.maps.event.trigger(map, 'resize'); 
     // google.maps.event.trigger($('#map-canvas'), 'resize');
     // load old directions if they exist
@@ -190,6 +136,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
       
       stepsCount = dirs.stepsCount;
       this.undoCalcRoute();
+      dirs.markerCoords = [dirs.markerCoords[0], dirs.markerCoords[dirs.markerCoords.length-1]];
       dirs.markerCoords.forEach(function(coords) {
         var pos = new google.maps.LatLng(coords.k, coords.B);
         var marker = new google.maps.Marker({
@@ -198,7 +145,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
         });
         markers.push(marker);
       })
-      this.updateElevation();
+      setTimeout(function() {this.updateElevation()}.bind(this), 3000).bind(this);
     };
 
     // ----- ELEVATION GRAPH LOGIC ---------
@@ -215,47 +162,41 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
       'path': allEfs,
       'samples': 512
     }
-
     elevator.getElevationAlongPath(pathRequest, this.toDo)
   },
 
   toDo: function(results) {
-    debugger
-    // chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
-  },
+    totalClimb = 0;
 
-
-
-  submit: function(event) {
-    event.preventDefault(); 
-    var attrs = this.$el.serializeJSON();
+    // create chart once...
+    if (chart == 0) {
+      chart = new google.visualization.LineChart(document.getElementById('elevation_chart'));
+    }
     
-    var directions = {
-      stopsArr:stopsArr,
-      lastStepsArr:lastStepsArr,
-      stepsCount:stepsCount,
-      markerCoords:[]
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Sample');
+    data.addColumn('number', 'Elevation');
+    for (var i = 0; i < results.length; i++) {
+      data.addRow(['', (results[i].elevation)*3.28084]);
     };
 
-    markers.forEach(function(marker) {
-      directions.markerCoords.push(marker.position)
+    for (var i = 1; i < results.length; i++) {
+      if (results[i].elevation > results[i-1].elevation+1) {
+        totalClimb += results[i].elevation-results[i-1].elevation
+      }
+    };
+    
+    totalClimb = Number(totalClimb*3.28084).toFixed(2);
+
+
+    chart.draw(data, {
+      width: 400,
+      height: 200,
+      legend: 'none',
+      titleY: 'Elevation (m)'
     });
-
-
-    attrs["directions"] = JSON.stringify(directions);
-    function success() {
-      Backbone.history.navigate("", { trigger: true } )
-    }
-
-    this.model.set(attrs);
-    if (this.model.isNew()) {
-      this.collection.create(attrs, {
-        success: success
-      })
-    } else {
-      this.model.save(attrs, {
-        success: success
-      })
-    }
-  }
+    
+    $('#climb').html(totalClimb + " feet");
+    
+  },
 });

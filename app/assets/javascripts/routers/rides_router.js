@@ -32,7 +32,7 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 	show: function(id) {
 		
 		var ride = RouteMapper.Collections.rides.getOrFetch(id);
-		var showView = new RouteMapper.Views.RidesForm({
+		var showView = new RouteMapper.Views.RidesShow({
 			model: ride,
 			collection: RouteMapper.Collections.rides
 		})
