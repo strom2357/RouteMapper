@@ -27,7 +27,8 @@
 
 #new-map .form {
 	border: 4px solid red;		
-	display: inline-block;
+	display: inline;
+	width: 29%;
 	float: left;
 }
 
@@ -37,8 +38,8 @@
 	border: 2px solid red;	
 	display: inline-block;
 	float: right;
-	height: 800px;
-	width: 800px;
+	height: 600px;
+	width: 70%;
 }
 
 
