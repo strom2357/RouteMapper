@@ -266,8 +266,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
 
     chart.draw(data, {
-      width: 400,
-      height: 200,
+      width: 800,
+      height: 100,
       legend: 'none',
       titleY: 'Elevation (m)'
     });

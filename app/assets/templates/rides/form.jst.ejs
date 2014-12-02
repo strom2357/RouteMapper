@@ -1,18 +1,20 @@
 <div id="new-map">
 	<div class="form">
+		
 		<label for='title'>Title</label>
-		  <input type="text" name="title" value="<%=ride.get('title')%>"><br>
+		  <input type="text" name="title" value="<%=ride.get('title')%>">
 
 		<label for='date'>Date</label>
-		  <input type="date" name="date" value="<%=ride.get('date')%>"><br>
-
+		  <input type="date" name="date" value="<%=ride.get('date')%>">
 		<button class="submit">Submit</button>
 		<button class="undo">Undo</button>
+		<div id="distance"></div>
+		<div id="climb"></div>
 	</div>
 	<div id="map">
 		<div id="map-canvas"></div>
-		<div id="distance"></div>
-		<div id="climb"></div>
-		<div id="elevation_chart"></div>
+		<div id="data">
+			<div id="elevation_chart"></div>
+		</div>
 	</div>
 </div>

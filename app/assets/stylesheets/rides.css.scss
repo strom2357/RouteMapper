@@ -37,9 +37,10 @@
 
 #new-map {
 	display: inline-block;
-	border: 2px solid blue;
+	border: 16px solid blue;
 	width: 100%;
 }
+
 #directions-panel {
 	width: 50px;
 	height: 50px;
@@ -47,9 +48,18 @@
 
 #new-map .form {
 	border: 4px solid red;		
-	display: inline;
-	width: 29%;
+	display: inline-block;
+	width: 100%;
+	height: 60px;
+}
+
+#new-map .form button {
+	float: right;	
+}
+
+#new-map .form * {
 	float: left;
+	width: 10%
 }
 
 #show-map .ride_details {
@@ -68,9 +78,30 @@
 	display: inline-block;
 	float: right;
 	height: 600px;
-	width: 70%;
+	width: 100%;
+}
+
+#map {
+	position: relative;
+	border: 8px solid black;	
+	height: 620px;	
 }
 
 #map * {
 	display: inline-block;	
+}
+
+
+#data {
+	border: 8px solid black;	
+	position: absolute; 
+	bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	right: 0;
+	left: 0;
+}
+
+#elevation-chart {
+	border: 3px solid blue;
 }
