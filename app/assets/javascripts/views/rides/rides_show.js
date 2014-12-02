@@ -1,11 +1,11 @@
-RouteMapper.Views.RidesForm = Backbone.View.extend({
+RouteMapper.Views.RidesShow = Backbone.View.extend({
   tagName: 'form',  
-  template: JST['rides/form'],
+  template: JST['rides/show'],
   
 
   events: {
-    "click .submit": "submit",
-    "click .undo" : "undo"
+    // "click .submit": "submit",
+    // "click .undo" : "undo"
   },
 
   initialize: function() {
@@ -13,13 +13,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   },
 
   render: function() {
-    debugger
-    setTimeout(function(){
-      google.load('visualization', '1', {
-        'callback':'', 'packages':['corechart', 'columnchart']
-      })
-    }, 2000)
-
     var renderedContent = this.template({
       
       ride: this.model
@@ -31,17 +24,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     return this;  
   },
 
-  undo: function() {
-    stopsArr.pop();
-    stepNum = stepsCount.pop()
-    for (var i = 0; i < stepNum; i++) {
-      lastStepsArr.pop();
-    }
-    var marker = markers.pop();
-    marker.setMap(null);
-    this.undoCalcRoute();
-  },
-
   setGlobals: function() {
     stopsArr = [];
     lastStepsArr = [];
@@ -51,13 +33,13 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     // waypointsArr = [];
   },
   
-    placeMarker: function(location){
-      var marker = new google.maps.Marker({
-        position: location,
-        map: map,
-      });
-      markers.push(marker);
-    },
+  placeMarker: function(location){
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+    });
+    markers.push(marker);
+  },
 
     undoCalcRoute: function() {
       var stopNum = stopsArr.length;
@@ -139,8 +121,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
 
   initMap: function () {
-    // google.load("visualization", "1", {packages:["columnchart"]});
-    // debugger
     directions = {};
     directionsDisplay = new google.maps.DirectionsRenderer({draggable: false, preserveViewport: true});
     directionsService = new google.maps.DirectionsService();
@@ -234,13 +214,13 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       'path': allEfs,
       'samples': 512
     }
-    debugger
+
     elevator.getElevationAlongPath(pathRequest, this.toDo)
   },
 
   toDo: function(results) {
     debugger
-    chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
+    // chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
   },
 
 
