@@ -10,10 +10,12 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
 
   initialize: function() {
     this.listenTo(this.collection, "sync", this.render)
+    this.listenTo(this.collection, "sync", this.elevationTimeout)
   },
   
 
   render: function() {
+    debugger
     setTimeout(function(){
       google.load('visualization', '1', {
         'callback':'', 'packages':['corechart', 'columnchart']
@@ -51,7 +53,6 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
           pathToPlot.push(pathGf);
         })
       });
-      
 
       var flightPath = new google.maps.Polyline({
         path: pathToPlot,
@@ -61,7 +62,29 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
         strokeWeight: 3
       });
 
-      flightPath.setMap(map);
+      flightPath.setMap(map)
+      var stopNum = stopsArr.length;
+      if (stopNum > 1) {
+        var start = stopsArr[stopNum-2];
+        var end = stopsArr[stopNum-1];
+        var request = {
+          origin:start,
+          destination:end,
+
+          travelMode: google.maps.TravelMode.BICYCLING
+        }
+
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            response.routes[0].legs[0].steps = lastStepsArr;
+            response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
+            response.oc.origin = lastStepsArr[0].start_location;
+            directionsDisplay.setDirections(response);
+          }
+        });
+      } else {
+        directionsDisplay.set('directions', null);
+      }
     },
 
     
@@ -82,6 +105,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     // debugger
     directions = {};
     directionsDisplay = new google.maps.DirectionsRenderer({draggable: false, preserveViewport: true});
+    directionsService = new google.maps.DirectionsService();
     myLatlng = new google.maps.LatLng(37.781, 237.588);
 
     mapOptions = {
@@ -95,7 +119,9 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
 
 
-   
+
+    // You needed this if you want to drag routes
+
     // google.maps.event.trigger(map, 'resize'); 
     // google.maps.event.trigger($('#map-canvas'), 'resize');
     // load old directions if they exist
@@ -145,10 +171,14 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
         });
         markers.push(marker);
       })
-      setTimeout(function() {this.updateElevation()}.bind(this), 3000).bind(this);
+      // setTimeout(function() {this.updateElevation()}.bind(this), 3000).bind(this);
     };
 
     // ----- ELEVATION GRAPH LOGIC ---------
+  },
+
+  elevationTimeout: function() {
+    setTimeout(function() {this.updateElevation()}.bind(this), 3000)
   },
 
   updateElevation: function () {
@@ -199,4 +229,42 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     $('#climb').html(totalClimb + " feet");
     
   },
+
+
+
+  submit: function(event) {
+    event.preventDefault(); 
+    var attrs = this.$el.serializeJSON();
+    
+    var directions = {
+      stopsArr:stopsArr,
+      lastStepsArr:lastStepsArr,
+      stepsCount:stepsCount,
+      markerCoords:[]
+    };
+
+    markers.forEach(function(marker) {
+      directions.markerCoords.push(marker.position)
+    });
+
+
+    attrs["directions"] = JSON.stringify(directions);
+    attrs["distance"] = distance;
+    attrs["elevation"] = totalClimb;
+    debugger
+    function success() {
+      Backbone.history.navigate("", { trigger: true } )
+    }
+
+    this.model.set(attrs);
+    if (this.model.isNew()) {
+      this.collection.create(attrs, {
+        success: success
+      })
+    } else {
+      this.model.save(attrs, {
+        success: success
+      })
+    }
+  }
 });

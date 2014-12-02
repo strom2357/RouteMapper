@@ -7,11 +7,13 @@
 		<div>Elevation Gain</div>
 	</div>
 	<% rides.each(function(ride) { %>
+		<a href="#rides/<%=ride.id%>">
 		<div class="ride_info">
 			<div><%=ride.get('title')%></div>
 			<div><%=ride.get('date')%></div>
 			<div><%=ride.get('distance')%></div>
 			<div><%=ride.get('elevation')%></div>
 		</div>
+		</a>
 	<% }); %>
 </div>
