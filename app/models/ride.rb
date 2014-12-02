@@ -1,5 +1,5 @@
 class Ride < ActiveRecord::Base
-	validates :user_id, :title, :date, presence: true
+	validates :user_id, :title, presence: true
 
 	belongs_to(:user)
 end

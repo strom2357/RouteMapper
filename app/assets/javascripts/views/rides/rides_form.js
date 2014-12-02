@@ -253,7 +253,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     data.addColumn('string', 'Sample');
     data.addColumn('number', 'Elevation');
     for (var i = 0; i < results.length; i++) {
-      data.addRow(['', results[i].elevation]);
+      data.addRow(['', (results[i].elevation)*3.28084]);
     };
 
     for (var i = 1; i < results.length; i++) {
@@ -261,7 +261,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         totalClimb += results[i].elevation-results[i-1].elevation
       }
     };
-
+    debugger
+    totalClimb = Number(totalClimb*3.28084).toFixed(2);
 
 
     chart.draw(data, {
@@ -271,7 +272,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       titleY: 'Elevation (m)'
     });
     debugger
-    $('#climb').html(totalClimb + " meters");
+    $('#climb').html(totalClimb + " feet");
     
   },
 
@@ -294,6 +295,9 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
 
     attrs["directions"] = JSON.stringify(directions);
+    attrs["distance"] = distance;
+    attrs["elevation"] = totalClimb;
+    debugger
     function success() {
       Backbone.history.navigate("", { trigger: true } )
     }

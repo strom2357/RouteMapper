@@ -27,7 +27,7 @@ module Api
 
 		private
 		def ride_params
-			params.require(:ride).permit(:user_id, :title, :date, :directions)
+			params.require(:ride).permit(:user_id, :title, :date, :directions, :distance, :elevation)
 		end
 	end
 end
