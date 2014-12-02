@@ -1,5 +1,11 @@
 <a href="#/rides/new"> New Ride </a>
 <div class=rides>
+	<div class="ride_header">
+		<div>Title</div>
+		<div>Date</div>
+		<div>Distance</div>
+		<div>Elevation Gain</div>
+	</div>
 	<% rides.each(function(ride) { %>
 		<div class="ride_info">
 			<div><%=ride.get('title')%></div>
