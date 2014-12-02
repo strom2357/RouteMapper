@@ -241,10 +241,11 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   },
 
   toDo: function(results) {
-    
+    totalClimb = 0;
+
     // create chart once...
     if (chart == 0) {
-      chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
+      chart = new google.visualization.LineChart(document.getElementById('elevation_chart'));
     }
     
     var data = new google.visualization.DataTable();
@@ -253,13 +254,24 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     for (var i = 0; i < results.length; i++) {
       data.addRow(['', results[i].elevation]);
     };
-    
+
+    for (var i = 1; i < results.length; i++) {
+      if (results[i].elevation > results[i-1].elevation+1) {
+        totalClimb += results[i].elevation-results[i-1].elevation
+      }
+    };
+
+
+
     chart.draw(data, {
-      width: 640,
+      width: 600,
       height: 200,
       legend: 'none',
       titleY: 'Elevation (m)'
     });
+    debugger
+    $('#climb').html(totalClimb + " meters");
+    
   },
 
 
