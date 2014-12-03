@@ -9,14 +9,13 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
 
   initialize: function() {
     this.listenTo(this.collection, "sync", this.render)
-    this.listenTo(this.collection, "sync", this.elevationTimeout)
   },
   
 
   render: function() {
     setTimeout(function(){
       google.load('visualization', '1', {
-        'callback':'elevationTimeout', 'packages':['corechart', 'columnchart']
+        'callback':'', 'packages':['corechart', 'columnchart']
       })
     }, 2000)
 
@@ -169,15 +168,15 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
         });
         markers.push(marker);
       })
-      // setTimeout(function() {this.updateElevation()}.bind(this), 3000).bind(this);
+      setTimeout(function() {this.updateElevation()}.bind(this), 3000);
     };
 
     // ----- ELEVATION GRAPH LOGIC ---------
   },
 
-  elevationTimeout: function() {
-    setTimeout(function() {this.updateElevation()}.bind(this), 3000)
-  },
+  // elevationTimeout: function() {
+  //   setTimeout(function() {this.updateElevation()}.bind(this), 3000)
+  // },
 
   updateElevation: function () {
     allEfs = [];
