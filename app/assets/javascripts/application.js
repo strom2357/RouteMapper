@@ -65,6 +65,7 @@ $.UsersSearch.prototype.renderResults = function (users) {
 		var $a = $("<div></div>");
 		$a.text(user.username);
 		// $a.attr("href", "/users/" + user.id + "/followings");
+		debugger
 		$a.on("click", follow.bind(user));
 		// button to follow
 		var $li = $("<li></li>");

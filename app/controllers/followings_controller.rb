@@ -16,7 +16,7 @@ class FollowingsController < ApplicationController
 	def destroy
 		sleep(1)
 
-		@follow = current_user.followings.find_by(followed_id: params[:user_id])
+		@follow = current_user.followings.find_by(followed_user_id: params[:user_id])
 		@follow.destroy!
 
 		render json: @follow

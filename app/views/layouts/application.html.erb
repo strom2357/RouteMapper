@@ -16,7 +16,7 @@
 		<div class="nav">
 			<h2> RouteMapper </h2>
 			<% if signed_in? %>
-				<ul>
+				<ul class="navbar">
 					<li><%= button_to "Sign Out", session_url, method: :delete %></li>
 					<li>
 						<div class="users-search">
@@ -24,7 +24,7 @@
 						    Username
 						    <input type="text" name="username">
 						  </label>
-						  <h4>Result</h4>
+						  
 						  <ul class="users"></ul>
 						</div>
 					</li>

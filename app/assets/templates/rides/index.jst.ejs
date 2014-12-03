@@ -1,17 +1,14 @@
 <div class=rides>
-	<div class="ride_header">
-		<div>Title</div>
-		<div>Date</div>
-		<div>Distance</div>
-		<div>Elevation Gain</div>
-	</div>
+	
 	<% rides.each(function(ride) { %>
 		<a href="#rides/<%=ride.id%>">
 		<div class="ride_info">
-			<div><%=ride.get('title')%></div>
-			<div><%=ride.get('date')%></div>
-			<div><%=ride.get('distance')%></div>
-			<div><%=ride.get('elevation')%></div>
+			<div class="date_title">
+				<div><%=ride.get('title')%></div>
+				<div><%=ride.get('date')%></div>
+			</div>
+			<div><%=ride.get('distance')%> miles</div>
+			<div><%=ride.get('elevation')%> ft. of climbing</div>
 		</div>
 		</a>
 	<% }); %>
