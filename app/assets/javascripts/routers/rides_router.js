@@ -7,7 +7,8 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 		"": "index",
 		"rides/new": "new",
 		"rides/:id": "show",
-		"rides/edit/:id": "edit"
+		"rides/edit/:id": "edit",
+		"users": "users"
 	},
 
 	index: function() {
@@ -49,6 +50,15 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 		})
 
 		this._swapView(showView);
+	},
+
+	users: function() {
+		var users = RouteMapper.Collections.users.fetch();
+		var usersView = new RouteMapper.Views.UsersIndex({
+			collection: RouteMapper.Collections.users
+		})
+
+		this._swapView(usersView);
 	},
 
 	_swapView: function(view) {

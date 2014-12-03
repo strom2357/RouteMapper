@@ -18,6 +18,7 @@
 			<% if signed_in? %>
 				<ul>
 					<li><%= button_to "Sign Out", session_url, method: :delete %></li>
+					<li><ul>User Search</ul></li>
 					<li><a href="#rides/new">New Ride</a></li>
 					<li><a href="#">Activity Feed</a></li>
 					<li><%= current_user.username %></li>
