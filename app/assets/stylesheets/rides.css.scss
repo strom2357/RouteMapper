@@ -69,11 +69,6 @@ button {
 	width: 100%;
 }
 
-#directions-panel {
-	width: 50px;
-	height: 50px;
-}
-
 #show-map .ride_details {	
 	display: inline-block;
 	width: 100%;
@@ -82,8 +77,6 @@ button {
 	margin: 0 0 -4px 0;
 	
 }
-
-
 
 #show-map .ride_details a {
 	float: right;
@@ -136,3 +129,30 @@ button {
 	left: 0;
 }
 
+#directions-panel {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 300px;
+	height: 600px;
+	overflow: scroll;
+	opacity: .9;
+	background-color: #ffffff;	
+	display: none;
+}
+
+#directions-hover {
+	position: absolute;
+	right: 8px;
+	bottom: 16px;
+	opacity: .9;
+	
+}
+
+#directions-hover:hover ~ #directions-panel{
+	display: block;
+}
+
+#directions-panel:hover {
+	display: block;
+}

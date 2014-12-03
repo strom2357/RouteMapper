@@ -156,7 +156,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
     map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
     directionsDisplay.setMap(map);
-    // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
+    directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
 
 
     google.maps.event.addListener(map, 'click', function(event) {
