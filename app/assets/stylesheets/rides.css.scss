@@ -2,39 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.ride_header {
-	width: 85%;
-	float: right;
-	height: 50px;
-	style: block;
-	border: 2px solid red;	
-	font-family: "Helvetica Neue";
-	font-size: 24px;
-}
-
-.ride_header * {
-	border: 2px dashed red;		
-	width: 20%;
-	text-align: center;
-	float: left;
-}
-
-.ride_info {
-	float: right;
-	width: 85%;
-	style: inline-block;
-	font-family: "Helvetica Neue";
-	font-size: 18px;
-}
-
-.ride_info * {
-	border: 2px dashed red;		
-	width: 20%;
-	height: 50px;
-	text-align: center;
-	float: left;
-}
-
 #new-map {
 	display: inline-block;
 	width: 100%;
@@ -60,6 +27,15 @@
 	
 }
 
+#show-map .ride_details {	
+	display: inline-block;
+	width: 100%;
+	height: 60px;
+	background-color: #e0e0e0;
+	margin: 0 0 -4px 0;
+	
+}
+
 button {
   background: #3498db;
   font-family: "Helvetica Neue";
@@ -70,8 +46,19 @@ button {
 }
 
 
+
 #new-map .form button {
 	float: right;	
+}
+
+#show-map .ride_details a {
+	float: right;
+	background: #3498db;
+  font-family: "Helvetica Neue";
+  color: #ffffff;
+  font-size: 16px;
+  padding: 10px 20px;
+  width: 60px;
 }
 
 #new-map .form * {
@@ -80,14 +67,14 @@ button {
 	font-family: "Helvetica Neue";
 }
 
-#show-map .ride-details * {
+#show-map .ride_details * {
 	float: left;
-	width: 10%
+	width: 10%;
 }
 
 #show-map .ride_details {
 	font-family: "Helvetica Neue";
-	font-size: 24px;
+	font-size: 18px;
 	border: 4px solid red;		
 	display: inline-block;
 	width: 100%;

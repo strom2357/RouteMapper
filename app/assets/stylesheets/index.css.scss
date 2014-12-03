@@ -1,8 +1,34 @@
-.ride_info div {
+
+.ride_info * {
 	display: inline-block;
 	border: 2px blue dotted;
+	width: 20%;
+	height: 50px;
+	text-align: center;
+	float: left;
+}
+
+.ride_header * {
+	display: inline-block;
+	border: 2px blue dotted;
+	width: 20%;
+	height: 50px;
+	text-align: center;
+	float: left;
+}
+
+.ride_header {
+	float: right;
+	width: 85%;
+	style: inline-block;
+	font-family: "Helvetica Neue";
+	font-size: 18px;
 }
 
 .ride_info {
-	border: 3px blue solid;
+	float: right;
+	width: 85%;
+	style: inline-block;
+	font-family: "Helvetica Neue";
+	font-size: 18px;
 }

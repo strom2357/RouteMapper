@@ -4,7 +4,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
   
 
   events: {
-    "click .edit" : "edit"
+    
   },
 
   initialize: function() {
@@ -192,9 +192,6 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     elevator.getElevationAlongPath(pathRequest, this.toDo)
   },
 
-  edit: function() {
-
-  },
 
   toDo: function(results) {
     totalClimb = 0;
