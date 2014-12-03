@@ -14,21 +14,18 @@
  *= require_self
  */
 
-.ride_info div {
-	display: inline-block;
-	border: 2px blue dotted;
-}
-
-.ride_info {
-	border: 3px blue solid;
-}
-
 body {
 	padding: 0;
 	margin: 0;
+	border: 3px blue solid;
+	font-family: "Helvetica Neue";
 }
 
-head * {
-	float: left;
-	border: 3px blue solid;
+body .nav h2 {
+		float: left;
+	}
+
+body .nav * {
+	float: right;
 }
+
