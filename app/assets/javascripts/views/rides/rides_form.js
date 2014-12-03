@@ -220,6 +220,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         });
         markers.push(marker);
       })
+      this.elevationTimeout();
       // setTimeout(function() {this.updateElevation()}.bind(this), 5000).bind(this);
     };
 
