@@ -16,7 +16,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
   render: function() {
     setTimeout(function(){
       google.load('visualization', '1', {
-        'callback':'', 'packages':['corechart', 'columnchart']
+        'callback':'elevationTimeout', 'packages':['corechart', 'columnchart']
       })
     }, 2000)
 
@@ -222,8 +222,8 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
 
 
     chart.draw(data, {
-      width: 400,
-      height: 200,
+      width: 800,
+      height: 100,
       legend: 'none',
       titleY: 'Elevation (m)'
     });

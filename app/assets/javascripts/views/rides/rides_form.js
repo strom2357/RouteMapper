@@ -11,7 +11,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   initialize: function() {
     this.listenTo(this.collection, "sync", this.render)
   },
-  
 
   render: function() {
     setTimeout(function(){
@@ -221,13 +220,17 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         });
         markers.push(marker);
       })
-      setTimeout(function() {this.updateElevation()}.bind(this), 5000).bind(this);
+      // setTimeout(function() {this.updateElevation()}.bind(this), 5000).bind(this);
     };
 
     // ----- ELEVATION GRAPH LOGIC ---------
   },
+    elevationTimeout: function() {
+    setTimeout(function() {this.updateElevation()}.bind(this), 3000)
+  },
 
   updateElevation: function () {
+    debugger
     allEfs = [];
     lastStepsArr.forEach(function(step) { 
       allEfs.push(step.start_location);
@@ -243,7 +246,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
 
   toDo: function(results) {
     totalClimb = 0;
-
+    debugger
     // create chart once...
     if (chart == 0) {
       chart = new google.visualization.LineChart(document.getElementById('elevation_chart'));

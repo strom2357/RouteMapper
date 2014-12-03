@@ -37,7 +37,7 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 			collection: RouteMapper.Collections.rides
 		})
 		debugger
-		this._swapView(formView);
+		this.$rootEl.html(formView.render().$el);
 	},
 
 
