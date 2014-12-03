@@ -22,3 +22,13 @@
 .ride_info {
 	border: 3px blue solid;
 }
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+head * {
+	float: left;
+	border: 3px blue solid;
+}

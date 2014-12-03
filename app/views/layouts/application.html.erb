@@ -3,6 +3,15 @@
 <div class="container">
 	<head>
 	  <title>RouteMapper</title>
+	  <% if signed_in? %>
+		<%= current_user.username %>
+		<%= current_user.id %>
+		<%= link_to "Sign Out", session_url, method: :delete %>
+	<% else %>
+		<%= link_to "Sign In", new_session_url %>
+		<%= link_to "Sign Up", new_user_url %>
+	<% end %>
+
 	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	  <script type="text/javascript"
@@ -13,14 +22,6 @@
 	  <%= csrf_meta_tags %>
 	</head>
 	<body>
-	<% if signed_in? %>
-		<%= current_user.username %>
-		<%= current_user.id %>
-		<%= link_to "Sign Out", session_url, method: :delete %>
-	<% else %>
-		<%= link_to "Sign In", new_session_url %>
-		<%= link_to "Sign Up", new_user_url %>
-	<% end %>
 
 	<%= yield %>
 

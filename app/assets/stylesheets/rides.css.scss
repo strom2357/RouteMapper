@@ -37,14 +37,12 @@
 
 #new-map {
 	display: inline-block;
-	border: 16px solid blue;
 	width: 100%;
 }
 
 
 #show-map {
 	display: inline-block;
-	border: 16px solid blue;
 	width: 100%;
 }
 
@@ -53,12 +51,24 @@
 	height: 50px;
 }
 
-#new-map .form {
-	border: 4px solid red;		
+#new-map .form {	
 	display: inline-block;
 	width: 100%;
 	height: 60px;
+	background-color: #e0e0e0;
+	margin: 0 0 -4px 0;
+	
 }
+
+button {
+  background: #3498db;
+  font-family: "Helvetica Neue";
+  color: #ffffff;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
 
 #new-map .form button {
 	float: right;	
@@ -66,7 +76,8 @@
 
 #new-map .form * {
 	float: left;
-	width: 10%
+	width: 10%;
+	font-family: "Helvetica Neue";
 }
 
 #show-map .ride-details * {
@@ -83,10 +94,10 @@
 	height: 60px;
 }
 
+
 #map-canvas {
 	margin: 0;
 	padding: 0;
-	border: 2px solid red;	
 	display: inline-block;
 	float: right;
 	height: 600px;
@@ -95,25 +106,18 @@
 
 #map {
 	position: relative;
-	border: 8px solid black;	
-	height: 620px;	
-}
-
-#map * {
-	display: inline-block;	
+	height: 600px;	
 }
 
 
-#data {
-	border: 8px solid black;	
+#data {		
 	position: absolute; 
-	bottom: 20px;
+	bottom: 16px;
+	width: 800px;
+	height: 100px;
 	margin-left: auto;
 	margin-right: auto;
 	right: 0;
 	left: 0;
 }
 
-#elevation-chart {
-	border: 12px solid red;
-}
