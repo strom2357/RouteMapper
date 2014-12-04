@@ -12,4 +12,23 @@
 		</div>
 		</a>
 	<% }); %>
+	<% 
+		function getMonday(d) {
+  			d = new Date(d);
+  			var day = d.getDay(),
+      		diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  			return new Date(d.setDate(diff));
+		}
+		debugger
+		var monday = getMonday(new Date());
+	%>
+
+	<% var miles = 0;
+		rides.each(function(ride) {debugger
+		var date = new Date(ride.get('date'));
+		if (date >= monday) {
+			miles += ride.get('distance');
+		}
+	})%>
+
 </div>
