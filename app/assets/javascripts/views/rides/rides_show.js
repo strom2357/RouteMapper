@@ -105,6 +105,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
     directionsService = new google.maps.DirectionsService();
     myLatlng = new google.maps.LatLng(37.781, 237.588);
 
+
     mapOptions = {
       center: myLatlng,
       zoom: 12,
@@ -113,7 +114,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
 
     map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
     directionsDisplay.setMap(map);
-    // directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
+    directionsDisplay.setPanel(this.$el.find('#directions-panel')[0]);
 
 
 
