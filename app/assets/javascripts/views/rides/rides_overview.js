@@ -7,9 +7,10 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
     
   },
 
-  initialize: function() {
+  initialize: function(options) {
     this.listenTo(this.collection, "sync", this.render);
     rides = this.collection;
+    date = new Date(options["date"]);
   },
   
 
@@ -25,6 +26,7 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
       
     });
 
+    if (rides.length > 0) {this.setRides()};
     this.$el.html(renderedContent);
     this.initMap();
     rides.each(function(ride) {
@@ -33,6 +35,19 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
     }.bind(this))
     directionsDisplay.setMap(null);
     return this;  
+  },
+
+  setRides: function() {
+    recent_rides = [];
+    debugger
+    rides.each(function(ride) {
+      var rideDate = new Date(ride.get('date'));
+      if (rideDate > date) {
+        recent_rides.push(ride)
+      }
+    })
+    debugger
+    rides.models = recent_rides;
   },
 
   setGlobals: function(ride) {

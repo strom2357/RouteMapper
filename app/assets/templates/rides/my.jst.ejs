@@ -48,12 +48,12 @@
       		diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
   			return new Date(d.setDate(diff));
 		}
-		var endOfMonth = new Date();
-		var endOfYear = new Date();
+		endOfMonth = new Date();
+		endOfYear = new Date();
 		endOfMonth.setDate(0);
 		endOfYear.setMonth(0);
 		endOfYear.setDate(0);
-		var monday = getMonday(new Date());
+		monday = getMonday(new Date());
 	%>
 
 	<% setTimeout(calculateMiles.bind(this), 2000); %>
@@ -126,24 +126,30 @@
 		$('#allClimb').html(allClimb + " feet");
 		
 	} %>
-	<a href="#rides/overview/week">
+	<a href="#rides/overview/<%=encodeURI(monday)%>">
 		<div id="weekInfo">
 			<div id="weekMiles"></div> 
 			<div id="weekClimb"></div>
 		</div>
 	</a>
-	<div id="monthInfo">
-		<div id="monthMiles"></div> 
-		<div id="monthClimb"></div>
-	</div>
-	<div id="yearInfo">
-		<div id="yearMiles"></div> 
-		<div id="yearClimb"></div>
-	</div>
-	<div id="allInfo">
-		<div id="allMiles"></div> 
-		<div id="allClimb"></div>
-	</div>
+	<a href="#rides/overview/<%=encodeURI(monday)%>">
+		<div id="monthInfo">
+			<div id="monthMiles"></div> 
+			<div id="monthClimb"></div>
+		</div>
+	</a>
+	<a href="#rides/overview/<%=encodeURI(monday)%>">
+		<div id="yearInfo">
+			<div id="yearMiles"></div> 
+			<div id="yearClimb"></div>
+		</div>
+	</a>
+	<a href="#rides/overview/Sat%20Jan%2004%201900%2013:29:41%20GMT-0800%20(PST)">
+		<div id="allInfo">
+			<div id="allMiles"></div> 
+			<div id="allClimb"></div>
+		</div>
+	</a>
 </div>
 
 
