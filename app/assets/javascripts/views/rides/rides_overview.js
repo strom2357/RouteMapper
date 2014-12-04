@@ -31,6 +31,7 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
         this.setGlobals(ride);
         this.populateMap(ride);
     }.bind(this))
+    directionsDisplay.setMap(null);
     return this;  
   },
 
@@ -156,17 +157,7 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
       
       stepsCount = dirs.stepsCount;
       this.undoCalcRoute();
-      dirs.markerCoords = [dirs.markerCoords[0], dirs.markerCoords[dirs.markerCoords.length-1]];
-      dirs.markerCoords.forEach(function(coords) {
-        if (coords) {
-        var pos = new google.maps.LatLng(coords.k, coords.B);
-        var marker = new google.maps.Marker({
-          position: pos,
-          map: map,
-        });
-        markers.push(marker);
-      }
-      }) // come back to....
+       // come back to....
       // setTimeout(function() {this.updateElevation()}.bind(this), 3000);
     };
   },
