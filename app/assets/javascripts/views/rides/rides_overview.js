@@ -8,7 +8,8 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
   },
 
   initialize: function() {
-    this.listenTo(this.collection, "sync", this.render)
+    this.listenTo(this.collection, "sync", this.render);
+    rides = this.collection;
   },
   
 
@@ -25,12 +26,15 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
     });
 
     this.$el.html(renderedContent);
-    this.setGlobals();
     this.initMap();
+    rides.each(function(ride) {
+        this.setGlobals(ride);
+        this.populateMap(ride);
+    }.bind(this))
     return this;  
   },
 
-  setGlobals: function() {
+  setGlobals: function(ride) {
     chart = 0;
     stopsArr = [];
     lastStepsArr = [];
@@ -114,15 +118,13 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
 
     map = new google.maps.Map(this.$el.find('#map-canvas')[0], mapOptions);
     directionsDisplay.setMap(map);
+  },
 
-
-
-   
-    if (this.model.get('directions')) {
-      var dirs = JSON.parse(this.model.get('directions'))
+   populateMap: function(ride) {
+    if (ride.get('directions')) {
+      console.log(ride.get('title'))
+      var dirs = JSON.parse(ride.get('directions'))
       
-
-          // but not of google's latLng class.  Need to convert.
       dirs.stopsArr.forEach(function (stop) {
         var stopLatLng = new google.maps.LatLng(stop.k, stop.B);
         stopsArr.push(stopLatLng);
@@ -156,17 +158,17 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
       this.undoCalcRoute();
       dirs.markerCoords = [dirs.markerCoords[0], dirs.markerCoords[dirs.markerCoords.length-1]];
       dirs.markerCoords.forEach(function(coords) {
+        if (coords) {
         var pos = new google.maps.LatLng(coords.k, coords.B);
         var marker = new google.maps.Marker({
           position: pos,
           map: map,
         });
         markers.push(marker);
-      })
-      setTimeout(function() {this.updateElevation()}.bind(this), 3000);
+      }
+      }) // come back to....
+      // setTimeout(function() {this.updateElevation()}.bind(this), 3000);
     };
-
-    // ----- ELEVATION GRAPH LOGIC ---------
   },
 
   // elevationTimeout: function() {
