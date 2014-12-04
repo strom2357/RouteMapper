@@ -48,7 +48,8 @@
       		diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
   			return new Date(d.setDate(diff));
 		}
-		
+		var endOfMonth = new Date();
+		endOfMonth.setDate(0);
 		var monday = getMonday(new Date());
 	%>
 
@@ -60,8 +61,10 @@
     }, 1000) %>
 
 	<% function calculateMiles() {
-		miles = 0;
-		climb = 0;
+		weekMiles = 0;
+		weekClimb = 0;
+		monthMiles = 0;
+		monthClimb = 0;
 		weekArr = [
 			["Day", "Miles"],
 			["M", 0],
@@ -77,8 +80,15 @@
 			if (date >= monday ) {	
 				if (ride.get('user_id') === current_user.id) {
 					weekArr[1+date.getDay()][1] += ride.get('distance');
-					miles += ride.get('distance');
-					climb += ride.get('elevation');
+					weekMiles += ride.get('distance');
+					weekClimb += ride.get('elevation');
+				}
+			}
+
+			if (date >= endOfMonth) {
+				if (ride.get('user_id') === current_user.id) {
+					monthMiles += ride.get('distance');
+					monthClimb += ride.get('elevation');
 				}
 			}
 		})
