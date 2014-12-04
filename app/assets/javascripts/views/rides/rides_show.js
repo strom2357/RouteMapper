@@ -163,12 +163,14 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
       this.undoCalcRoute();
       dirs.markerCoords = [dirs.markerCoords[0], dirs.markerCoords[dirs.markerCoords.length-1]];
       dirs.markerCoords.forEach(function(coords) {
+        if (coords) {
         var pos = new google.maps.LatLng(coords.k, coords.B);
         var marker = new google.maps.Marker({
           position: pos,
           map: map,
         });
         markers.push(marker);
+        };
       })
       setTimeout(function() {this.updateElevation()}.bind(this), 3000);
     };

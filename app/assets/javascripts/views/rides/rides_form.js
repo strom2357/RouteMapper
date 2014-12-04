@@ -128,6 +128,8 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       // flightPath.setMap(map);
     },
 
+
+
     updateDistance: function() {
       distance = 0;
       lastStepsArr.forEach(function(step) {
@@ -223,6 +225,9 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       this.elevationTimeout();
       // setTimeout(function() {this.updateElevation()}.bind(this), 5000).bind(this);
     };
+
+
+
 
     // ----- ELEVATION GRAPH LOGIC ---------
   },
