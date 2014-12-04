@@ -1,5 +1,20 @@
 <div class=rides>
 	
+	<% 
+		$.ajax({
+			url: "/users",
+			dataType: "json",
+			method: "GET",
+			data: {   },
+			success: parseUser.bind(this)
+			
+		});
+
+		function parseUser(result) {
+			current_user = result;
+		}
+	%>
+	
 	<% rides.each(function(ride) { %>
 		<a href="#rides/<%=ride.id%>">
 		<div class="ride_info">
@@ -22,13 +37,5 @@
 		debugger
 		var monday = getMonday(new Date());
 	%>
-
-	<% var miles = 0;
-		rides.each(function(ride) {debugger
-		var date = new Date(ride.get('date'));
-		if (date >= monday) {
-			miles += ride.get('distance');
-		}
-	})%>
 
 </div>

@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 	root to: 'static_pages#root'	
 
-  resources :users, only: [:new, :create, :search] do
+
+  resources :users, only: [:new, :create, :index, :show, :search] do
   	get "search", on: :collection
 
   	resource :followings, only: [:create, :destroy]
