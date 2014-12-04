@@ -33,8 +33,8 @@ module Api
 
 		def index
 			rides_to_show = []
-			rides_to_show.push(current_user.followed_rides)
-			rides_to_show.push(current_user.rides)
+			rides_to_show.concat(current_user.followed_rides)
+			rides_to_show.concat(current_user.rides)
 			
 			@ride_set = rides_to_show
 			

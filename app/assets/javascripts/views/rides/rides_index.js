@@ -7,6 +7,7 @@ RouteMapper.Views.RidesIndex = Backbone.View.extend({
   },
 
   render: function() {
+    debugger
   	var renderedContent = this.template({
   		rides: this.collection
   	});
