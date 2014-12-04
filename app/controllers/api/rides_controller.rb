@@ -32,10 +32,11 @@ module Api
 		end
 
 		def index
-			rides = current_user.rides
-			rides.push(current_user.followed_rides)
+			rides_to_show = []
+			rides_to_show.push(current_user.followed_rides)
+			rides_to_show.push(current_user.rides)
 			
-			@ride_set = rides
+			@ride_set = rides_to_show
 			
 			render json: @ride_set
 		end

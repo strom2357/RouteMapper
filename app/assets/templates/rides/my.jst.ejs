@@ -1,0 +1,90 @@
+<div class=rides>
+	<% 
+		$.ajax({
+			url: "/users",
+			dataType: "json",
+			method: "GET",
+			data: {   },
+			success: parseUser.bind(this)
+			
+		});
+
+		function parseUser(result) {
+			current_user = result;
+			get_rides(this.collection);
+		}
+	%>
+
+	
+
+	<% function get_rides(collection) {
+		my_rides = [];
+		rides= collection;
+			rides.each(function(ride) { 
+				if (ride.get('user_id') === current_user.id) {
+					my_rides.push(ride)
+				}
+			});
+			debugger
+		};
+	%>
+
+	<% rides.each(function(ride) { %>
+		<a href="#rides/<%=ride.id%>">
+		<div class="ride_info">
+			<div class="date_title">
+				<div><%=ride.get('title')%></div>
+				<div><%=ride.get('date')%></div>
+			</div>
+			<div><%=ride.get('distance')%> miles</div>
+			<div><%=ride.get('elevation')%> ft. of climbing</div>
+		</div>
+		</a>
+	<% }); %>
+	<% 
+		function getMonday(d) {
+  			d = new Date(d);
+  			var day = d.getDay(),
+      		diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  			return new Date(d.setDate(diff));
+		}
+		
+		var monday = getMonday(new Date());
+	%>
+
+	<% setTimeout(calculateMiles.bind(this), 2000); %>
+	<% setTimeout(function(){
+      google.load('visualization', '1', {
+        'callback':'', 'packages':['corechart', 'columnchart']
+      })
+    }, 1000) %>
+
+	<% function calculateMiles() {
+		miles = 0;
+		climb = 0;
+		weekArr = [
+			["Day", "Miles"],
+			["M", 0],
+			["T", 0],
+			["W", 0],
+			["Th", 0],
+			["F", 0],
+			["Sat", 0],
+			["Sun", 0]
+		];
+		this.collection.each(function(ride) {
+			date = new Date(ride.get('date'));
+			if (date >= monday ) {	
+				if (ride.get('user_id') === current_user.id) {
+					weekArr[1+date.getDay()][1] += ride.get('distance');
+					miles += ride.get('distance');
+					climb += ride.get('elevation');
+				}
+			}
+		})
+		var data = google.visualization.arrayToDataTable(weekArr)
+		var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'))
+		chart.draw(data);
+	} %>
+	<div id="chart_div"></div>
+</div>

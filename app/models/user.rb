@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 		through: :followings,
 		source: :followed_user
 	)
+	
 	has_many(
 		:followed_rides,
 		through: :followed_users,
