@@ -14,7 +14,7 @@
 			current_user = result;
 		}
 	%>
-	
+
 	<% rides.each(function(ride) { %>
 		<a href="#rides/<%=ride.id%>">
 		<div class="ride_info">
@@ -34,8 +34,23 @@
       		diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
   			return new Date(d.setDate(diff));
 		}
-		debugger
+		
 		var monday = getMonday(new Date());
 	%>
+
+	<% setTimeout(calculateMiles.bind(this), 1000); %>
+	<% function calculateMiles() {
+		miles = 0;
+		climb = 0;
+		this.collection.each(function(ride) {
+			date = new Date(ride.get('date'));
+			if (date >= monday ) {
+				if (ride.get('user_id') === current_user.id) {
+					miles += ride.get('distance');
+					climb += ride.get('elevation');
+				}
+			}
+		})
+	} %>
 
 </div>
