@@ -2,7 +2,8 @@ RouteMapper.Collections.Rides = Backbone.Collection.extend({
 	url: '/api/rides',
 
   comparator: function(ride) {
-    return (ride.get("date")).getTime();
+    var date = new Date(ride.get("date"));
+    return -date.getTime();
   },
 
   model: RouteMapper.Models.Ride,
