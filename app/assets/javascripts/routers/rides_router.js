@@ -9,6 +9,7 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 		"rides/my": "my",
 		"rides/:id": "show",
 		"rides/edit/:id": "edit",
+		"rides/overview/week": "week"
 	},
 
 	index: function() {
@@ -42,7 +43,6 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 
 
 	show: function(id) {
-		
 		var ride = RouteMapper.Collections.rides.getOrFetch(id);
 		var showView = new RouteMapper.Views.RidesShow({
 			model: ride,
@@ -60,6 +60,15 @@ RouteMapper.Routers.Router = Backbone.Router.extend({
 		});
 
 		this._swapView(myView);
+	},
+
+	week: function() {
+		RouteMapper.Collections.rides.fetch();
+		var weekView = new RouteMapper.Views.RidesOverview({
+			collection: RouteMapper.Collections.rides
+		});
+
+		this._swapView(weekView);
 	},
 
 	_swapView: function(view) {
