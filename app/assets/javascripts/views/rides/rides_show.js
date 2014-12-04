@@ -82,6 +82,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
       } else {
         directionsDisplay.set('directions', null);
       }
+      map.setCenter(pathToPlot[0]);
     },
 
     
