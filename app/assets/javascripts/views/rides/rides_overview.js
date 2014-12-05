@@ -15,6 +15,8 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
   
 
   render: function() {
+    totalMiles = 0;
+    totalClimb = 0;
     setTimeout(function(){
       google.load('visualization', '1', {
         'callback':'', 'packages':['corechart', 'columnchart']
@@ -34,6 +36,9 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
         this.populateMap(ride);
     }.bind(this))
     directionsDisplay.setMap(null);
+    $('#totalClimb').html(totalClimb);
+    $('#totalMiles').html(totalMiles);
+
     return this;  
   },
 
@@ -45,7 +50,7 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
         recent_rides.push(ride)
       }
     })
-    
+
     rides.models = recent_rides;
   },
 
@@ -171,6 +176,8 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
       
       stepsCount = dirs.stepsCount;
       this.undoCalcRoute();
+      totalMiles += ride.get('distance');
+      totalClimb += ride.get('elevation');
        // come back to....
       // setTimeout(function() {this.updateElevation()}.bind(this), 3000);
     };
