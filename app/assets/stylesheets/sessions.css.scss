@@ -2,18 +2,50 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .sign_in {
-	font-family: verdana;
-	border: 2px solid red;
+	background-color: #f5f5f5;
+	padding-top: 40px;
+	border: 3px solid #3498db;
 	width: 20%;
 	height: 300px;
 	margin: 10% 40%;
 }
 
 .sign_in form * 	{
+	margin-left: 80px;
 	style: inline;
 	width: 100%;
-	border: 2px solid red;	
+}
+
+.sign_in #username {
+	font-size: 24px;
+	font-family: "Helvetica Neue";
+	font-weight: bold;
+	text-align: center;
 }
 
 
+.sign_in #password {
+	font-size: 24px;
+	font-family: "Helvetica Neue";
+	font-weight: bold;
+	text-align: center;
+}
 
+
+.sign_in input[type=text] {
+	width: 120px;
+}
+
+.sign_in input[type=password] {
+	width: 120px;
+	margin-bottom: 40px;
+}
+
+.sign_in input[type=submit] {
+	padding: 15px 15px; 
+	background:#3498db;
+	margin-left: 10px;
+	width: 80px; 
+	cursor:pointer;
+	border-radius: 5px; 
+	}
