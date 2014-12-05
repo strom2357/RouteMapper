@@ -23,6 +23,7 @@ module Api
 		def create			
 			@ride = Ride.new(ride_params)
 			@ride.user_id = current_user.id
+			@ride.username = current_user.username
 			if @ride.save
 				render :json => @ride
 			else
@@ -48,7 +49,7 @@ module Api
 
 		private
 		def ride_params
-			params.require(:ride).permit(:user_id, :title, :date, :directions, :distance, :elevation)
+			params.require(:ride).permit(:user_id, :username, :title, :date, :directions, :distance, :elevation)
 		end
 	end
 end
