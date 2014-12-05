@@ -7,6 +7,8 @@ RouteMapper.Views.RidesMy = Backbone.View.extend({
   },
 
   render: function() {
+    myRides = [];
+
   	var renderedContent = this.template({
   		rides: this.collection
   	});

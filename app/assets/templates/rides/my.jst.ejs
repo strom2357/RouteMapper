@@ -15,8 +15,6 @@
 		}
 	%>
 
-	
-
 	<% function get_rides(collection) {
 		my_rides = [];
 		rides= collection;
@@ -27,19 +25,23 @@
 			});
 		};
 	%>
-
-	<% rides.each(function(ride) { %>
-		<a href="#rides/<%=ride.id%>">
-		<div class="ride_info">
-			<div class="date_title">
-				<div><%=ride.get('title')%></div>
-				<div><%=ride.get('date')%></div>
+	<div class="rides_container">
+		<% rides.each(function(ride) { %>
+		<% if (ride.get('user_id') === current_user.id) {%>
+			<a href="#rides/<%=ride.id%>">
+			<div class="ride_info">
+				<div class="date_title">
+					<div id="ride-index-title"><%=ride.get('title')%></div>
+					<div id="ride-index-username">A ride by <%=ride.get('username')%></div>
+					<div id="ride-index-date"><%=ride.get('date')%></div>
+				</div>
+				<div><%=ride.get('distance')%> miles</div>
+				<div><%=ride.get('elevation')%> ft. of climbing</div>
 			</div>
-			<div><%=ride.get('distance')%> miles</div>
-			<div><%=ride.get('elevation')%> ft. of climbing</div>
-		</div>
-		</a>
-	<% }); %>
+			</a>
+			<%};%>
+		<% }); %>
+	</div>
 	<% 
 		function getMonday(d) {
   			d = new Date(d);
