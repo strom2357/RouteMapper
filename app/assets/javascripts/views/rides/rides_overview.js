@@ -36,8 +36,9 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
         this.populateMap(ride);
     }.bind(this))
     directionsDisplay.setMap(null);
-    $('#totalClimb').html(totalClimb);
-    $('#totalMiles').html(totalMiles);
+    $('#totalClimb').html(Number(totalClimb).toFixed(2));
+    $('#totalMiles').html(Number(totalMiles).toFixed(2));
+    $('#overview_date').html("All rides since "+(date.toLocaleDateString()));
 
     return this;  
   },
