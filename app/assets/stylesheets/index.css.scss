@@ -2,8 +2,8 @@
 .ride_info * {
 	display: inline-block;
 	width: 20%;
-	height: 50px;
-	text-align: center;
+	height: 80px;
+	text-align: right;
 	float: left;
 	background-color: #f5f5f5;
 	margin: 0 0 10px 0;
@@ -17,7 +17,7 @@
 }
 
 .ride_info {
-	height: 80px;
+	height: 100px;
 	margin-left: 120px;
 	float: left;
 	width: 100%;
@@ -48,4 +48,40 @@
 	top: 80px;
 	right: 0px
 }
+
+#rides_data_summary {
+	position: absolute;
+	right: 50px;
+	height: 500px;
+	width: 400px;
+}
+
+.cumulative_info {	
+	height: 120px;
+	width: 100%;
+	border: 3px solid #3498db;
+	margin: 10px;
+	background-color: #f5f5f5;
+	float: left;
+	style: block;
+}
+
+.cumulative_info a #time_range {
+	float: left;
+	style: inline;
+}
+
+.cumulative_info a {	
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+}
+
+.cumulative_info a .miles { 
+	width: 200px;
+	float: right;
+	style: block;
+}
+
 

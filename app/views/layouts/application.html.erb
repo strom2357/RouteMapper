@@ -17,7 +17,7 @@
 			<h2> RouteMapper</h2>
 			<% if signed_in? %>
 				<ul class="navbar">
-					<li><%= current_user.username %></li>
+					<li id="current-username"><%= current_user.username %></li>
 					<li><%= link_to "Sign Out", session_url, method: :delete %></li>
 					<li>
 						<div class="users-search">

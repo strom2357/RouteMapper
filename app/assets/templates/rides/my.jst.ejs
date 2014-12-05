@@ -25,7 +25,6 @@
 					my_rides.push(ride)
 				}
 			});
-			debugger
 		};
 	%>
 
@@ -116,41 +115,45 @@
 		});
 		
 
-		$('#weekMiles').html(weekMiles + " miles");
-		$('#weekClimb').html(weekClimb + " feet");
-		$('#monthMiles').html(monthMiles + " miles");
-		$('#monthClimb').html(monthClimb + " feet");
-		$('#yearMiles').html(yearMiles + " miles");
-		$('#yearClimb').html(yearClimb + " feet");
-		$('#allMiles').html(allMiles + " miles");
-		$('#allClimb').html(allClimb + " feet");
+		$('#weekMiles').html(Math.floor(weekMiles) + " miles");
+		$('#weekClimb').html(Math.floor(weekClimb) + " feet");
+		$('#monthMiles').html(Math.floor(monthMiles) + " miles");
+		$('#monthClimb').html(Math.floor(monthClimb) + " feet");
+		$('#yearMiles').html(Math.floor(yearMiles) + " miles");
+		$('#yearClimb').html(Math.floor(yearClimb) + " feet");
+		$('#allMiles').html(Math.floor(allMiles) + " miles");
+		$('#allClimb').html(Math.floor(allClimb) + " feet");
 		
 	} %>
 	<div id="rides_data_summary">
-		<a href="#rides/overview/<%=encodeURI(monday)%>">
-			<div id="weekInfo">
-				<div id="weekMiles"></div> 
-				<div id="weekClimb"></div>
+			<div id="weekInfo" class="cumulative_info">
+				<a href="#rides/overview/<%=encodeURI(monday)%>">
+				<div id="time_range">This week:</div>
+				<div id="weekMiles" class="miles"></div> 
+				<div id="weekClimb" class="miles"></div>
+				</a>
 			</div>
-		</a>
-		<a href="#rides/overview/<%=encodeURI(endOfMonth)%>">
-			<div id="monthInfo">
-				<div id="monthMiles"></div> 
-				<div id="monthClimb"></div>
+			<div id="monthInfo" class="cumulative_info">
+				<a href="#rides/overview/<%=encodeURI(endOfMonth)%>">
+				<div id="time_range">This month:</div>
+				<div id="monthMiles" class="miles"></div> 
+				<div id="monthClimb" class="miles"></div>
+				</a>
 			</div>
-		</a>
-		<a href="#rides/overview/<%=encodeURI(endOfYear)%>">
-			<div id="yearInfo">
-				<div id="yearMiles"></div> 
-				<div id="yearClimb"></div>
+			<div id="yearInfo" class="cumulative_info">
+				<a href="#rides/overview/<%=encodeURI(endOfYear)%>">
+				<div id="time_range">YTD:</div>
+				<div id="yearMiles" class="miles"></div> 
+				<div id="yearClimb" class="miles"></div>
+				</a>
 			</div>
-		</a>
-		<a href="#rides/overview/Sat%20Jan%2004%201900%2013:29:41%20GMT-0800%20(PST)">
-			<div id="allInfo">
-				<div id="allMiles"></div> 
-				<div id="allClimb"></div>
+			<div id="allInfo" class="cumulative_info">
+				<a href="#rides/overview/Sat%20Jan%2004%201900%2013:29:41%20GMT-0800%20(PST)">
+				<div id="time_range">All time:</div>
+				<div id="allMiles" class="miles"></div>
+				<div id="allClimb" class="miles"></div>
+				</a>
 			</div>
-		</a>
 	</div>
 </div>
 
