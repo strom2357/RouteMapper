@@ -80,11 +80,6 @@ body .nav * {
 	display: block;	
 }
 
-#chart_div {
-	position: absolute;
-	border: 3px solid blue;
-	z-index: 1;
-}
 
 .users-search .users {
 }
