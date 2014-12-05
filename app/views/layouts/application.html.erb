@@ -18,7 +18,7 @@
 			<% if signed_in? %>
 				<ul class="navbar">
 					<li><%= current_user.username %></li>
-					<li><%= button_to "Sign Out", session_url, method: :delete %></li>
+					<li><%= link_to "Sign Out", session_url, method: :delete %></li>
 					<li>
 						<div class="users-search">
 						  <label>

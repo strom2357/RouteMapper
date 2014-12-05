@@ -4,7 +4,6 @@ window.RouteMapper = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
     new RouteMapper.Routers.Router({
   		$rootEl: $("#content")
   	});
