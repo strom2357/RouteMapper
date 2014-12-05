@@ -14,14 +14,15 @@
 	</head>
 	<body>
 		<div class="nav">
-			<h2> RouteMapper </h2>
+			<h2> RouteMapper</h2>
 			<% if signed_in? %>
 				<ul class="navbar">
+					<li><%= current_user.username %></li>
 					<li><%= button_to "Sign Out", session_url, method: :delete %></li>
 					<li>
 						<div class="users-search">
 						  <label>
-						    Username
+						  	Follow
 						    <input type="text" name="username">
 						  </label>
 						  
@@ -31,11 +32,12 @@
 					<li><a href="#rides/new">New Ride</a></li>
 					<li><a href="#">Activity Feed</a></li>
 					<li><a href="#rides/my">My Rides</a></li>
-					<li><%= current_user.username %></li>
 				</ul>
 			<% else %>
-				<%= link_to "Sign In", new_session_url %>
-				<%= link_to "Sign Up", new_user_url %>
+				<ul class="navbar">
+					<li><%= link_to "Sign In", new_session_url %></li>
+					<li><%= link_to "Sign Up", new_user_url %></li>
+				</ul>
 			<% end %>
 		</div>
 

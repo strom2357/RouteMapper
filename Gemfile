@@ -7,6 +7,7 @@ gem 'annotate'
 gem 'newrelic_rpm'
 gem 'backbone-on-rails'
 gem 'bootstrap-sass'
+gem 'seed_dump'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
