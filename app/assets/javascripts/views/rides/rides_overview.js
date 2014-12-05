@@ -39,14 +39,13 @@ RouteMapper.Views.RidesOverview = Backbone.View.extend({
 
   setRides: function() {
     recent_rides = [];
-    debugger
     rides.each(function(ride) {
       var rideDate = new Date(ride.get('date'));
       if (rideDate > date) {
         recent_rides.push(ride)
       }
     })
-    debugger
+    
     rides.models = recent_rides;
   },
 

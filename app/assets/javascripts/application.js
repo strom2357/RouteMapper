@@ -39,6 +39,14 @@ $.UsersSearch.prototype.handleInput = function (event) {
 	}
 
 	$.ajax({
+		url: "/users",
+		dataType: "json",
+		method: "GET",
+		data: {  },
+		success: this.setCurrentUser.bind(this)
+	});
+
+	$.ajax({
 		url: "/users/search",
 		dataType: "json",
 		method: "GET",
@@ -46,7 +54,7 @@ $.UsersSearch.prototype.handleInput = function (event) {
 		success: this.renderResults.bind(this)
 	});
 };
-
+$.UsersSearch.prototype.setCurrentUser = function (result) { current_user = result }
 $.UsersSearch.prototype.renderResults = function (users) {
 	this.$ul.empty();
 	for (var i = 0; i < users.length; i++) {
