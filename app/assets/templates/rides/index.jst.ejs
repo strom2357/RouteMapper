@@ -1,5 +1,4 @@
 <div class=rides>
-	<%debugger%>
 	<% 
 		$.ajax({
 			url: "/users",
@@ -14,19 +13,20 @@
 			current_user = result;
 		}
 	%>
-
-	<% rides.each(function(ride) { %>
-		<a href="#rides/<%=ride.id%>">
-		<div class="ride_info">
-			<div class="date_title">
-				<div><%=ride.get('title')%></div>
-				<div><%=ride.get('date')%></div>
+	<div class="rides_container">
+		<% rides.each(function(ride) { %>
+			<a href="#rides/<%=ride.id%>">
+			<div class="ride_info">
+				<div class="date_title">
+					<div><%=ride.get('title')%></div>
+					<div><%=ride.get('date')%></div>
+				</div>
+				<div><%=ride.get('distance')%> miles</div>
+				<div><%=ride.get('elevation')%> ft. of climbing</div>
 			</div>
-			<div><%=ride.get('distance')%> miles</div>
-			<div><%=ride.get('elevation')%> ft. of climbing</div>
-		</div>
-		</a>
-	<% }); %>
+			</a>
+		<% }); %>
+	</div>
 	<% 
 		function getMonday(d) {
   			d = new Date(d);
