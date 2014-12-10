@@ -32,6 +32,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
   },
 
   undo: function() {
+    event.preventDefault();
     stopsArr.pop();
     stepNum = stepsCount.pop()
     for (var i = 0; i < stepNum; i++) {
