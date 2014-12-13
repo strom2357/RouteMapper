@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<div class="container">
+<div>
 	<head>
 	  <title>RouteMapper</title>
 	  <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -12,46 +12,48 @@
  
 	  <%= csrf_meta_tags %>
 	</head>
+  <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top nav-fixed-height" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">RouteMapper</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <% if signed_in? %>
+                <li id="current-username"><%= current_user.username %></li>
+                <li><%= link_to "Sign Out", session_url, method: :delete %></li>
+                <li><a href="#rides/new">New Ride</a></li>
+                <li><a href="#">Activity Feed</a></li>
+                <li><a href="#rides/my">My Rides</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="users-search">
+              <input type="text" class="form-control" name="username" placeholder="Search...">
+              <ul class="users"></ul>
+            </div>
+          </form>
+          <% else %>
+            <li><%= link_to "Sign In", new_session_url %></li>
+            <li><%= link_to "Sign Up", new_user_url %></li>
+          </ul>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+  </header>
 	<body>
-		<div id="main-container" class="container-fluid">
-			<div class="row">
-				<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    				<div class="container-fluid">
-      				<div class="navbar-header">
-        				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          			<span class="sr-only">Toggle navigation</span>
-          			<span class="icon-bar"></span>
-          			<span class="icon-bar"></span>
-          			<span class="icon-bar"></span>
-        			</button>
-        			<a class="navbar-brand" href="#">RouteMapper</a>
-      			</div>
-      			<div id="navbar" class="navbar-collapse collapse">
-        			<ul class="nav navbar-nav navbar-right">
-        				<% if signed_in? %>
-        						<li id="current-username"><%= current_user.username %></li>
-        						<li><%= link_to "Sign Out", session_url, method: :delete %></li>
-          					<li><a href="#rides/new">New Ride</a></li>
-										<li><a href="#">Activity Feed</a></li>
-										<li><a href="#rides/my">My Rides</a></li>
-        			</ul>
-        			<form class="navbar-form navbar-right">
-        				<div class="users-search">
-          				<input type="text" class="form-control" name="username" placeholder="Search...">
-          				<ul class="users"></ul>
-          			</div>
-        			</form>
-        			<% else %>
-        				<li><%= link_to "Sign In", new_session_url %></li>
-								<li><%= link_to "Sign Up", new_user_url %></li>
-							</ul>
-							<% end %>
-      			</div>
-      		</div>
-    		</nav>
-			</div>
-			<%= yield %>
-		</div>
+    <div class="container-fluid">
+  		<div class="row">
+  			<%= yield %>
+  		</div>
+    </div>
 	</body>
 </div>
 </html>

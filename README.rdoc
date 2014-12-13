@@ -1,3 +1,8 @@
+TODO - Remove .nav-fixed-height from navbar and position new ride form correctly
+
+
+
+
 PHASE 1 - User can log in, create a basic "ride" with just title and date, and see a rides index.
 Backend
 Models - User (name, id), Ride (user_id, name, date)
