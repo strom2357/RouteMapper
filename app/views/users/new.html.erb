@@ -1,21 +1,17 @@
-<h2>Sign Up</h2>
 <div class="sign_in">
-  <form action="<%= users_url %>" method="post"> 
+  <form class="form-signin" role="form" action="<%= users_url %>" method="post"> 
     <%= auth_token_input %>
-    
+    <h2 class="form-signin-heading">Sign up</h2>
 
-    <label id="username">
-      Username
-      <input type="text" name="user[username]" value="">
-    </label>
+    <label for="inputUsername" id="username" class="sr-only">Username</label>
+      <input type="text" id="inputEmail" class="form-control" name="user[username]" value="Guest" required autofocus>
 
-    <label id="password">
-      Password
-      <input type="password" name="user[password]" value="">
-    </label>
+    <label for="inputPassword" class="sr-only" id="password">Password</label>
+      <input type="password" id="inputPassword" class="form-control" name="user[password]" value="catlover" required autofocus>
 
     <label id="login">
-      <input type="submit" value="Sign Up">
+      <input type="submit" value="Sign In">
     </label>
   </form>
 </div>
+

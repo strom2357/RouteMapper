@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.serializeJSON
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require underscore
 //= require backbone
 //= require route_mapper
