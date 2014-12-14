@@ -100,7 +100,7 @@ RouteMapper.Views.RidesShow = Backbone.View.extend({
 
   initMap: function () {
     // google.load("visualization", "1", {packages:["columnchart"]});
-    // debugger
+    
     directions = {};
     directionsDisplay = new google.maps.DirectionsRenderer({draggable: false, preserveViewport: true});
     directionsService = new google.maps.DirectionsService();

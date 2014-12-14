@@ -307,7 +307,6 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
     attrs["directions"] = JSON.stringify(directions);
     attrs["distance"] = distance;
     attrs["elevation"] = totalClimb;
-    debugger
     function success() {
       Backbone.history.navigate("", { trigger: true } )
     }
