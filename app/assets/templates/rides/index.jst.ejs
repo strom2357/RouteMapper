@@ -28,50 +28,5 @@
 			</a>
 		<% }); %>
 	</div>
-	<% 
-		function getMonday(d) {
-  			d = new Date(d);
-  			var day = d.getDay(),
-      		diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-  			return new Date(d.setDate(diff));
-		}
-		
-		var monday = getMonday(new Date());
-	%>
-
-	<% setTimeout(calculateMiles.bind(this), 2000); %>
-	<% setTimeout(function(){
-      google.load('visualization', '1', {
-        'callback':'', 'packages':['corechart', 'columnchart']
-      })
-    }, 1000) %>
-
-	<% function calculateMiles() {
-		miles = 0;
-		climb = 0;
-		weekArr = [
-			["Day", "Miles"],
-			["M", 0],
-			["T", 0],
-			["W", 0],
-			["Th", 0],
-			["F", 0],
-			["Sat", 0],
-			["Sun", 0]
-		];
-		this.collection.each(function(ride) {
-			date = new Date(ride.get('date'));
-			if (date >= monday ) {	
-				if (ride.get('user_id') === current_user.id) {
-					weekArr[1+date.getDay()][1] += ride.get('distance');
-					miles += ride.get('distance');
-					climb += ride.get('elevation');
-				}
-			}
-		})
-		var data = google.visualization.arrayToDataTable(weekArr)
-		var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'))
-		chart.draw(data);
-	} %>
-	<div id="chart_div"></div>
+	
 </div>

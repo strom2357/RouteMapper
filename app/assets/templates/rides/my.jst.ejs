@@ -25,7 +25,7 @@
 			});
 		};
 	%>
-	<div class="rides_container">
+	<div class="my_rides_container">
 		<% rides.each(function(ride) { %>
 		<% if (ride.get('user_id') === current_user.id) {%>
 			<a href="#rides/<%=ride.id%>">
