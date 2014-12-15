@@ -4,17 +4,22 @@
 
 .sign_in {
 	background-color: rgba(150, 150, 150, .4);
-	
-	
 	width: 30%;
 	height: 300px;
-	margin: 10% 40%;
+	margin: 10% 35%;
 }
 
-.sign_in form * 	{
-	margin-left: 80px;
+.sign_in form * {
 	style: inline;
-	width: 100%;
+	width: 60%;
+	margin: 0% 20%;
+	margin-top: 20px;
+}
+
+.sign_in h2 {
+	color: black;
+	text-align: center;
+	
 }
 
 .sign_in #username {
@@ -34,19 +39,15 @@
 
 
 .sign_in input[type=text] {
-	width: 120px;
+	
 }
 
 .sign_in input[type=password] {
-	width: 120px;
-	margin-bottom: 40px;
+	
 }
 
-.sign_in input[type=submit] {
-	padding: 15px 15px; 
-	background:#3498db;
-	margin-left: 10px;
-	width: 80px; 
+.sign_in input[type=submit] { 
+	background-color: #3498ca;
+	border-radius:2px;
 	cursor:pointer;
-	border-radius: 5px; 
 	}
