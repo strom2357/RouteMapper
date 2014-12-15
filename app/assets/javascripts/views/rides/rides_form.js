@@ -185,7 +185,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
       // in serialization, latLngs get turned into objects with lat and lng,
       // but not of google's latLng class.  Need to convert.
       dirs.stopsArr.forEach(function (stop) {
-        var stopLatLng = new google.maps.LatLng(stop.k, stop.B);
+        var stopLatLng = new google.maps.LatLng(stop.k, stop.D);
         stopsArr.push(stopLatLng);
       });
 
@@ -194,29 +194,29 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
         var efLatLngs = [];  
         var pathLatLngs = [];
         stepsArr.lat_lngs.forEach(function(latLng) {
-          var efLatLng = new google.maps.LatLng(latLng.k, latLng.B);
+          var efLatLng = new google.maps.LatLng(latLng.k, latLng.D);
           efLatLngs.push(efLatLng);
         });
 
         stepsArr.lat_lngs = efLatLngs;
 
         stepsArr.path.forEach(function(latLng) {
-          var pathLatLng = new google.maps.LatLng(latLng.k, latLng.B);
+          var pathLatLng = new google.maps.LatLng(latLng.k, latLng.D);
           pathLatLngs.push(pathLatLng);
         });
 
         stepsArr.path = pathLatLngs;
 
-        stepsArr.end_location = new google.maps.LatLng(stepsArr.end_location.k, stepsArr.end_location.B);
-        stepsArr.end_point = new google.maps.LatLng(stepsArr.end_point.k, stepsArr.end_point.B);
-        stepsArr.start_location = new google.maps.LatLng(stepsArr.start_location.k, stepsArr.start_location.B);
-        stepsArr.start_point = new google.maps.LatLng(stepsArr.start_point.k, stepsArr.start_point.B);
+        stepsArr.end_location = new google.maps.LatLng(stepsArr.end_location.k, stepsArr.end_location.D);
+        stepsArr.end_point = new google.maps.LatLng(stepsArr.end_point.k, stepsArr.end_point.D);
+        stepsArr.start_location = new google.maps.LatLng(stepsArr.start_location.k, stepsArr.start_location.D);
+        stepsArr.start_point = new google.maps.LatLng(stepsArr.start_point.k, stepsArr.start_point.D);
       })
       
       stepsCount = dirs.stepsCount;
       this.undoCalcRoute();
       dirs.markerCoords.forEach(function(coords) {
-        var pos = new google.maps.LatLng(coords.k, coords.B);
+        var pos = new google.maps.LatLng(coords.k, coords.D);
         var marker = new google.maps.Marker({
           position: pos,
           map: map,

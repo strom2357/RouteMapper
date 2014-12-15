@@ -112,7 +112,7 @@ button {
 
 
 #map-canvas {
-	margin: 0;
+	margin: -6px 0;
 	padding: 0;
 	display: inline-block;
 	float: right;
@@ -138,7 +138,7 @@ button {
 
 #data {		
 	position: absolute; 
-	bottom: 16px;
+	bottom: 40px;
 	width: 800px;
 	height: 100px;
 	margin-left: auto;
@@ -162,7 +162,7 @@ button {
 #directions-hover {
 	position: absolute;
 	right: 8px;
-	bottom: 16px;
+	bottom: 40px;
 	opacity: .9;
 	
 }
