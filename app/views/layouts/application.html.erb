@@ -27,11 +27,11 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <% if signed_in? %>
-                <li id="current-username"><%= current_user.username %></li>
                 <li><%= link_to "Sign Out", session_url, method: :delete %></li>
                 <li><a href="#rides/new">New Ride</a></li>
                 <li><a href="#">Activity Feed</a></li>
                 <li><a href="#rides/my">My Rides</a></li>
+                <li id="current-username"><%= current_user.username %></li>
           </ul>
           <form class="navbar-form navbar-right">
             <div class="users-search">
