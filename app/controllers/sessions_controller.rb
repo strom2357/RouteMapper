@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 	def destroy
 		if current_user.username == "Guest"
 			rides = Ride.where(username: "Guest")
-			newrides = rides.where("created_at > ?", Time.gm(2014, 12 16))
+			newrides = rides.where("created_at > ?", Time.gm(2014, 12, 16))
 			newrides.destroy_all
 		end
 		sign_out
