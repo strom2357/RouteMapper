@@ -110,7 +110,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
             // response.routes[0].legs[0].via_waypoint = waypointArr;
             // response.routes[0].legs[0].via_waypoints = waypointsArr;
             
-            response.lc.origin = lastStepsArr[0].start_location;
+            response.kc.origin = lastStepsArr[0].start_location;
             directionsDisplay.setDirections(response);
             // var distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
             // this.$el.find('#distance').html(distance);
