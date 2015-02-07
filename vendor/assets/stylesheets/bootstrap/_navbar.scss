@@ -209,13 +209,13 @@
   }
 
   // Bars
-  .icon-bar {
+  .vcon-bar {
     display: block;
     width: 22px;
     height: 2px;
     border-radius: 1px;
   }
-  .icon-bar + .icon-bar {
+  .vcon-bar + .vcon-bar {
     margin-top: 4px;
   }
 
@@ -445,7 +445,7 @@
     &:focus {
       background-color: $navbar-default-toggle-hover-bg;
     }
-    .icon-bar {
+    .vcon-bar {
       background-color: $navbar-default-toggle-icon-bar-bg;
     }
   }
@@ -580,7 +580,7 @@
     &:focus {
       background-color: $navbar-inverse-toggle-hover-bg;
     }
-    .icon-bar {
+    .vcon-bar {
       background-color: $navbar-inverse-toggle-icon-bar-bg;
     }
   }
