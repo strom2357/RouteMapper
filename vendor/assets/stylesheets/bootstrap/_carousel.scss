@@ -124,8 +124,8 @@
   }
 
   // Toggles
-  .vcon-prev,
-  .vcon-next,
+  .ocon-prev,
+  .ocon-next,
   .glyphicon-chevron-left,
   .glyphicon-chevron-right {
     position: absolute;
@@ -133,18 +133,18 @@
     z-index: 5;
     display: inline-block;
   }
-  .vcon-prev,
+  .ocon-prev,
   .glyphicon-chevron-left {
     left: 50%;
     margin-left: -10px;
   }
-  .vcon-next,
+  .ocon-next,
   .glyphicon-chevron-right {
     right: 50%;
     margin-right: -10px;
   }
-  .vcon-prev,
-  .vcon-next {
+  .ocon-prev,
+  .ocon-next {
     width:  20px;
     height: 20px;
     margin-top: -10px;
@@ -152,12 +152,12 @@
   }
 
 
-  .vcon-prev {
+  .ocon-prev {
     &:before {
       content: '\2039';// SINGLE LEFT-POINTING ANGLE QUOTATION MARK (U+2039)
     }
   }
-  .vcon-next {
+  .ocon-next {
     &:before {
       content: '\203a';// SINGLE RIGHT-POINTING ANGLE QUOTATION MARK (U+203A)
     }
@@ -236,19 +236,19 @@
   .carousel-control {
     .glyphicon-chevron-left,
     .glyphicon-chevron-right,
-    .vcon-prev,
-    .vcon-next {
+    .ocon-prev,
+    .ocon-next {
       width: 30px;
       height: 30px;
       margin-top: -15px;
       font-size: 30px;
     }
     .glyphicon-chevron-left,
-    .vcon-prev {
+    .ocon-prev {
       margin-left: -15px;
     }
     .glyphicon-chevron-right,
-    .vcon-next {
+    .ocon-next {
       margin-right: -15px;
     }
   }

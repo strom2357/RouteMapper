@@ -77,7 +77,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
           if (status == google.maps.DirectionsStatus.OK) {
             response.routes[0].legs[0].steps = lastStepsArr;
             response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
-            response.vc.origin = lastStepsArr[0].start_location;
+            response.oc.origin = lastStepsArr[0].start_location;
             directionsDisplay.setDirections(response);
           }
         });
@@ -109,8 +109,7 @@ RouteMapper.Views.RidesForm = Backbone.View.extend({
             response.routes[0].legs[0].start_location = lastStepsArr[0].start_location;
             // response.routes[0].legs[0].via_waypoint = waypointArr;
             // response.routes[0].legs[0].via_waypoints = waypointsArr;
-            
-            response.vc.origin = lastStepsArr[0].start_location;
+            response.oc.origin = lastStepsArr[0].start_location;
             directionsDisplay.setDirections(response);
             // var distance = directionsDisplay.getDirections().routes[0].legs[0].distance['text'];
             // this.$el.find('#distance').html(distance);
